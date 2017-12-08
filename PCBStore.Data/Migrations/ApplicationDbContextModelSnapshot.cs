@@ -5,7 +5,7 @@
    using Microsoft.EntityFrameworkCore.Infrastructure;
    using Microsoft.EntityFrameworkCore.Metadata;
 
-   [DbContext(typeof(ApplicationDbContext))]
+   [DbContext(typeof(PcbStoreDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -121,7 +121,7 @@
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PCBStore.Web.Models.ApplicationUser", b =>
+            modelBuilder.Entity("PCBStore.Web.Models.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -180,7 +180,7 @@
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PCBStore.Web.Models.ApplicationUser")
+                    b.HasOne("PCBStore.Web.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -188,7 +188,7 @@
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PCBStore.Web.Models.ApplicationUser")
+                    b.HasOne("PCBStore.Web.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -201,7 +201,7 @@
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PCBStore.Web.Models.ApplicationUser")
+                    b.HasOne("PCBStore.Web.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

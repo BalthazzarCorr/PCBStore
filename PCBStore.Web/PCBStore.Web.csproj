@@ -19,4 +19,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PCBStore.Common\PCBStore.Common.csproj" />
+    <ProjectReference Include="..\PCBStore.Data\PCBStore.Data.csproj" />
+    <ProjectReference Include="..\PCBStore.Services\PCBStore.Services.csproj" />
+  </ItemGroup>
+
 </Project>

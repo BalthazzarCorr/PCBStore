@@ -1,10 +1,12 @@
 ﻿namespace PCBStore.Data
 {
+   using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
    using Microsoft.EntityFrameworkCore;
+   using Models;
 
-   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+   public class PcbStoreDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public PcbStoreDbContext(DbContextOptions<PcbStoreDbContext> options)
             : base(options)
         {
         }

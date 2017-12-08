@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using PCBStore.Web.Data;
-using PCBStore.Web.Models;
-using PCBStore.Web.Services;
-
-namespace PCBStore.Web
+﻿namespace PCBStore.Web
 {
-    public class Startup
+   using Microsoft.AspNetCore.Builder;
+   using Microsoft.AspNetCore.Hosting;
+   using Microsoft.AspNetCore.Identity;
+   using Microsoft.EntityFrameworkCore;
+   using Microsoft.Extensions.Configuration;
+   using Microsoft.Extensions.DependencyInjection;
+   using Models;
+   using Services;
+
+   using Data;
+
+   public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -26,11 +23,11 @@ namespace PCBStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<PcbStoreDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<PcbStoreDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
