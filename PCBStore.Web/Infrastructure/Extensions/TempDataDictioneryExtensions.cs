@@ -1,9 +1,7 @@
-﻿
-
-namespace PCBStore.Web.Infrastructure.Extensions
+﻿namespace PCBStore.Web.Infrastructure.Extensions
 {
    using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
+   using static  WebConstants;
   
 
    public static class TempDataDictioneryExtensions
@@ -14,4 +12,4 @@ namespace PCBStore.Web.Infrastructure.Extensions
       }
    }
 }
-}
+

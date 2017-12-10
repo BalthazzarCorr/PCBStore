@@ -8,30 +8,35 @@ using PCBStore.Web.Models;
 
 namespace PCBStore.Web.Controllers
 {
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
+   public class HomeController : Controller
+   {
+      public IActionResult Index()
+      {
+         return View();
+      }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+      public IActionResult Home()
+      {
+         return View();
+      }
 
-            return View();
-        }
+      public IActionResult About()
+      {
+         ViewData["Message"] = "Your application description page.";
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+         return View();
+      }
 
-            return View();
-        }
+      public IActionResult Contact()
+      {
+         ViewData["Message"] = "Your contact page.";
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+         return View();
+      }
+
+      public IActionResult Error()
+      {
+         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      }
+   }
 }
