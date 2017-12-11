@@ -67,6 +67,8 @@
 
          app.UseStaticFiles();
 
+         app.UseDatabaseMigration();
+
          app.UseAuthentication();
 
          app.UseMvc(routes =>

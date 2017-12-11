@@ -62,10 +62,10 @@
                   adminUser = new Customer
                   {
                      Email = adminEmail,
-                     UserName = adminName
+                     UserName = adminEmail
                     
                   };
-                  var result = await userManager.CreateAsync(adminUser, "admin12");
+                  await userManager.CreateAsync(adminUser, "admin12");
                   await userManager.AddToRoleAsync(adminUser, adminName);
                }
             }).Wait();

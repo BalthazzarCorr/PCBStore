@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PCBStore.Common\PCBStore.Common.csproj" />
+    <ProjectReference Include="..\PCBStore.Data\PCBStore.Data.csproj" />
+  </ItemGroup>
+
 </Project>

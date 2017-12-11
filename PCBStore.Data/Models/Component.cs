@@ -1,5 +1,6 @@
 ﻿namespace PCBStore.Data.Models
 {
+
    using System.ComponentModel.DataAnnotations;
    using Common.Validation;
    using Enums;
