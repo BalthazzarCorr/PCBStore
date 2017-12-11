@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PCBStore.Data\PCBStore.Data.csproj" />
     <ProjectReference Include="..\PCBStore.Services\PCBStore.Services.csproj" />
   </ItemGroup>
 

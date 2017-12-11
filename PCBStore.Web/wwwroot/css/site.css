@@ -11,9 +11,7 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-#wrapper {
-    min-height: 100%;
-}
+
 
 /* Carousel */
 .carousel-caption p {
@@ -41,16 +39,18 @@
 
 
 #mainBox {
-    position: center;
-    
+   
+    overflow: hidden
 }
+
 canvas {
     background-color: black;
     position: center;
     opacity: .6;
     color: black;
-    
+    overflow: hidden
 }
+
 #title {
     position: absolute;
     z-index: 0;
@@ -63,12 +63,12 @@ canvas {
 }
 
 .fullscreen {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
+    bottom:0;
     right: 0;
-    overflow: auto;
+    overflow: hidden;
     background: black; /* Just to visualize the extent */
-
+    /*overflow: hidden*/
 }

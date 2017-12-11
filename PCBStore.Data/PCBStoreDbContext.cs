@@ -4,7 +4,7 @@
    using Microsoft.EntityFrameworkCore;
    using Models;
 
-   public class PcbStoreDbContext : IdentityDbContext<User>
+   public class PcbStoreDbContext : IdentityDbContext<Customer>
     {
         public PcbStoreDbContext(DbContextOptions<PcbStoreDbContext> options)
             : base(options)

@@ -20,7 +20,7 @@
          {
             serviceScope.ServiceProvider.GetService<PcbStoreDbContext>().Database.Migrate();
 
-            var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+            var userManager = serviceScope.ServiceProvider.GetService<UserManager<Customer>>();
 
             var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
@@ -59,7 +59,7 @@
 
                if (adminUser == null)
                {
-                  adminUser = new User
+                  adminUser = new Customer
                   {
                      Email = adminEmail,
                      UserName = adminName

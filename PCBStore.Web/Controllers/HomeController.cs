@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PCBStore.Web.Models;
-
-namespace PCBStore.Web.Controllers
+﻿namespace PCBStore.Web.Controllers
 {
+   using System.Diagnostics;
+   using Microsoft.AspNetCore.Mvc;
+   using Models;
+   using Data;
+   using System.Linq;
+
    public class HomeController : Controller
    {
+    
+
       public IActionResult Index()
       {
          return View();
@@ -19,6 +19,9 @@ namespace PCBStore.Web.Controllers
       {
          return View();
       }
+
+
+    
 
       public IActionResult About()
       {

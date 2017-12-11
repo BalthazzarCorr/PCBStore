@@ -16,15 +16,14 @@
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<Customer> _userManager;
+        private readonly SignInManager<Customer> _signInManager;
        
         private readonly ILogger _logger;
 
         public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
-            IEmailSender emailSender,
+            UserManager<Customer> userManager,
+            SignInManager<Customer> signInManager,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
@@ -216,7 +215,7 @@
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new Customer { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -305,7 +304,7 @@
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new Customer { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
