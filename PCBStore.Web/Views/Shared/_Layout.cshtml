@@ -36,10 +36,10 @@
                     @if (User.IsInRole(WebConstants.AdministratorRole))
                     {
                         <li><a asp-area="Admin" asp-controller="Customers" asp-action="AllCustomers">Customers</a></li>
-                        <li><a asp-area="Admin" asp-controller="" asp-action="Create">Create courses </a></li>
+                        <li><a asp-area="News" asp-controller="News" asp-action="All">Create courses </a></li>
 
                     }
-                    <li><a asp-area="" asp-controller="Home" asp-action="Home">Home</a></li>
+                    <li><a asp-area="News" asp-controller="News" asp-action="All">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>

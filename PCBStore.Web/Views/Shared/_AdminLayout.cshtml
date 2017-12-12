@@ -224,13 +224,13 @@
   </nav>
  @RenderBody()
        </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+<div class="card-footer small text-muted" align="right"><h5>@DateTime.UtcNow</h5></div>
         </div>
     </div>
       <footer class="sticky-footer">
           <div class="container">
               <div class="text-center">
-                  <small>Copyright © Your Website 2017</small>
+                  <small>Copyright © PCB Store 2017</small>
               </div>
           </div>
       </footer>
@@ -249,10 +249,12 @@
                       </button>
                   </div>
                   <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                  <div class="modal-footer">
-                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                      <a class="btn btn-primary" href="login.html">Logout</a>
-                  </div>
+                  <form method="post" id="logoutForm">
+                      <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-primary"asp-area="" asp-controller="Account" asp-action="Logout">Logout</button>
+                      </div>
+                  </form>
               </div>
           </div>
       </div>

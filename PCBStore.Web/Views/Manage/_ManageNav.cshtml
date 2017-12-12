@@ -1,5 +1,7 @@
-﻿@using PCBStore.Web.Views.Manage
-@inject SignInManager<User> SignInManager
+﻿@using Microsoft.AspNetCore.Identity
+@using PCBStore.Data.Models
+@using PCBStore.Web.Views.Manage
+@inject SignInManager<Customer> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
