@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PCBStore.Services.Admin.Model
+﻿namespace PCBStore.Services.Admin.Model
 {
-    public class AdminUserListingModel
-    {
-        
-    }
+   using Common.Mapping;
+   using Data.Models;
+   public class AdminUserListingModel : IMapFrom<Customer>
+   {
+      public string Id { get; set; }
+
+      public string Username { get; set; }
+
+      public string Email { get; set; }
+   }
 }
