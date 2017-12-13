@@ -32,8 +32,8 @@
                var roles = new[]
                {
                   adminName,
-                  WebConstants.BlogAuthorRole,
-                  WebConstants.TrainerRole
+                  WebConstants.ModeratorRole,
+                  WebConstants.CustomerRole
                };
 
 

@@ -5,9 +5,9 @@
 
       public const string AdministratorRole = "Administrator";
 
-      public const string BlogAuthorRole = "BlogAuthor";
+      public const string ModeratorRole = "Moderator";
 
-      public const string TrainerRole = "Trainer";
+      public const string CustomerRole = "Customer";
 
 
 
@@ -16,6 +16,6 @@
 
 
       public const string AdminArea = "Admin";
-      public const string BlogArea = "Blog";
+      public const string NewsArea = "News";
    }
 }

@@ -43,8 +43,8 @@ function Add() {
         Address: $('#Address').val(),
         Country: $('#Country').val(),
         Email: $('#Email').val(),
-        Password: $('#Password').val(),
-       
+        Password: $('#Password').val()
+
     };
     $.ajax({
         url: "/admin/customers/add",
@@ -52,15 +52,16 @@ function Add() {
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
-        success: function(result) {
-            loadData();
+        success: function (result) {
+            //loadData();
+            clearTextBox();
             $('#myModal').modal('hide');
         },
-        error: function(errormessage) {
+        error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
-    
+
 }
 
 //Function for clearing the textboxes
@@ -72,6 +73,7 @@ function clearTextBox() {
     $('#Country').val("");
     $('#Email').val("");
     $('#Password').val("");
+    $('#ConfirmPassword').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#Username').css('border-color', 'lightgrey');
@@ -86,6 +88,7 @@ function clearTextBox() {
 
 //Valdidation using jquery
 function validate() {
+    var html = '';
     var isValid = true;
     if ($('#Username').val().trim() == "") {
         $('#Username').css('border-color', 'Red');
@@ -128,8 +131,16 @@ function validate() {
         isValid = false;
     } else {
         $('#Password').css('border-color', 'lightgrey');
-    } if ($('#ConfirmPassword').val().trim() == "") {
+    }
+    if ($('#ConfirmPassword').val().trim() == "") {
         $('#ConfirmPassword').css('border-color', 'Red');
+        isValid = false;
+    } else {
+        $('#ConfirmPassword').css('border-color', 'lightgrey');
+    }
+    if ($('#Password').val().trim() != $('#ConfirmPassword').val().trim()) {
+        $('#ConfirmPassword').css('border-color', 'Red');
+        document.getElementById("ConfirmPassword1").innerHTML = "<p>passwords must be matching </p>"
         isValid = false;
     } else {
         $('#ConfirmPassword').css('border-color', 'lightgrey');

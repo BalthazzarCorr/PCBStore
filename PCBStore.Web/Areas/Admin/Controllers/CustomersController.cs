@@ -15,6 +15,7 @@
    using static WebConstants;
 
    [Authorize(Roles = AdministratorRole)]
+   [Route("[controller]/[action]")]
    public class CustomersController : BaseAdminController
    {
       private readonly IAdminUserService _users;
@@ -41,10 +42,12 @@
       {
          var users = await this._users.AllAsync();
 
+        
+
          var roles = await this._roleManager.Roles.Select(r => new SelectListItem
          {
             Text = r.Name,
-            Value = r.Name
+            Value = r.Name,
          }).ToListAsync();
 
 
@@ -65,10 +68,10 @@
          {
             UserName = model.UserName,
             FirstName = model.FirstName,
+            LastName = model.LastName,
             Email = model.Email,
             Address = model.Address,
             Country = model.Country,
-            
 
          };
 
@@ -80,6 +83,7 @@
       {
          var roleExists = await this._roleManager.RoleExistsAsync(model.Role);
          var user = await this._userManager.FindByIdAsync(model.UserId);
+  
          var userExists = user != null;
          if (!roleExists || !userExists)
          {

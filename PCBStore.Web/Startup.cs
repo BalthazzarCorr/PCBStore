@@ -73,6 +73,10 @@
 
          app.UseMvc(routes =>
          {
+            //routes.MapRoute(
+            //   name: "profile",
+            //   template: "news/create",
+            //   defaults: new {area="News",controller = "News", action = "Create"});
 
             routes.MapRoute(
                name: "areas",

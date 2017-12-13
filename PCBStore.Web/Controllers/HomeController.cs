@@ -3,9 +3,8 @@
    using System.Diagnostics;
    using Microsoft.AspNetCore.Mvc;
    using Models;
-   using Data;
-   using System.Linq;
 
+  
    public class HomeController : Controller
    {
     
@@ -15,6 +14,7 @@
          return View();
       }
 
+      [Route("[action]")]
       public IActionResult Home()
       {
          return View();

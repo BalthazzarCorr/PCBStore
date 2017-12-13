@@ -4,18 +4,17 @@
    using System.Security.Claims;
    using System.Threading.Tasks;
    using Areas.Admin.Controllers;
+   using Data.Models;
    using Microsoft.AspNetCore.Authentication;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
    using Microsoft.Extensions.Logging;
-   using Data.Models;
-   using Infrastructure.Extensions;
    using Models.AccountViewModels;
-   using Services;
+   using static WebConstants;
 
    [Authorize]
-   [Route("[controller]/[action]")]
+   [Route("[action]")]
    public class AccountController : Controller
    {
       private readonly UserManager<Customer> _userManager;
@@ -227,8 +226,20 @@
          ViewData["ReturnUrl"] = returnUrl;
          if (ModelState.IsValid)
          {
-            var user = new Customer { UserName = model.Email, Email = model.Email };
+            var user = new Customer
+            {
+               UserName = model.Email,
+               Email = model.Email,
+               Address = model.Address,
+               Country = model.Country,
+               FirstName = model.FirstName,
+               LastName = model.LastName,
+               
+            };
+
+            
             var result = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, CustomerRole);
             if (result.Succeeded)
             {
                _logger.LogInformation("User created a new account with password.");
