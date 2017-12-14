@@ -92,7 +92,7 @@
 
          if (!ModelState.IsValid)
          {
-            RedirectToAction(nameof(Index));
+            RedirectToAction(nameof(AllCustomers));
          }
 
 

@@ -112,9 +112,9 @@
           </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-          <a class="nav-link" href="#">
-            <i class="fa fa-fw fa-link"></i>
-            <span class="nav-link-text">Link</span>
+          <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Home">
+            <i class="fa fa-fw fa fa-internet-explorer"></i>
+            <span class="nav-link-text">Site</span>
           </a>
         </li>
       </ul>
@@ -249,6 +249,7 @@
                       </button>
                   </div>
                   <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+
                   <form method="post" id="logoutForm">
                       <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -273,7 +274,7 @@
       <!-- Custom scripts for this page-->
       <script src="~/js/sb-admin-datatables.min.js"></script>
       
-</div>
+
 @RenderSection("Scripts", required: false)
 </body>
 

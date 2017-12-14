@@ -2,10 +2,12 @@
 {
    using System.Threading.Tasks;
    using Data.Models;
+   using Infrastructure.Extensions;
    using Infrastructure.Filters;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
+   using Models;
    using Services.Html;
    using Services.News;
    using static WebConstants;
@@ -44,23 +46,24 @@
          return View();
       }
 
-      //[HttpPost]
-      //[ValidateModelState]
-      //public async Task<IActionResult> Create(PublishArticleFormModel model)
-      //{
-      //   model.Content = this._html.Sanitize(model.Content);
+      [Route("[action]")]
+      [HttpPost]
+      [ValidateModelState]
+      public async Task<IActionResult> Create(NewsArticleCreatingModel model)
+      {
+         model.Content = this._html.Sanitize(model.Content);
 
-      //   var userId = _users.GetUserId(User);
+         var userId = _customers.GetUserId(User);
 
-      //   await this._articles.CreateAsync(model.Title, model.Content, userId);
+         await this._newsArticles.CreateAsync(model.Title, model.Content, userId);
 
-      //   return RedirectToAction(nameof(Index));
+         return RedirectToAction(nameof(Index));
 
-      //}
+      }
 
-      //[AllowAnonymous]
-      //public async Task<IActionResult> Details(int id)
-      //   => this.ViewOrNotFound(await this._articles.ArticleDetails(id));
+      [AllowAnonymous]
+      public async Task<IActionResult> Details(int id)
+         => this.ViewOrNotFound(await this._newsArticles.ArticleDetails(id));
 
 
    }

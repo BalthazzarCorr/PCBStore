@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/passwordStrength.css" />
+        <link href="~/js/jquery-te-1.4.0.css" rel="stylesheet"/>
         @*<link rel="stylesheet" href="~/css/customNavbar.css" />*@
 
     </environment>
@@ -63,9 +64,11 @@
         <script src="~/js/site.min.js" asp-append-version="false"></script>
         <script src="~/js/jquery.min.js"></script>
         <script src="~/js/passwordStrength.jquery.js" asp-append-version="false"></script>
+        <script src="~/js/jquery-te-1.4.0.min.js"></script>
+        @*<script src="~/js/tinymce.min.js"></script>*@
 
         <script language="javascript" type="text/javascript">
-            jQuery(function() {
+            jQuery(function () {
                 jQuery("#password").passwordStrength({
                     targetDiv: 'passwordStrength',
                     text: {
@@ -95,6 +98,6 @@
         @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" asp-append-version="true"></script>*@
     </environment>
 
-        @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

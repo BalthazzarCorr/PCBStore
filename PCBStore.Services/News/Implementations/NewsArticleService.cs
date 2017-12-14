@@ -4,6 +4,7 @@
    using System.Threading.Tasks;
    using Data;
    using Data.Models;
+   using Models;
 
    public class NewsArticleService: INewsArticleService
    {
@@ -30,6 +31,10 @@
 
          await this._db.SaveChangesAsync();
       }
+
+      public async Task<ArticleDetailsModel> ArticleDetails(int id)
+         => null;/*await this._db.Articles.Where(a => a.Id == id).ProjectTo<ArticleDetailsModel>().FirstOrDefaultAsync();
+*/
 
       public Task<int> TotalAsyncArticles()
       {

@@ -54,6 +54,11 @@
 
 
                var adminEmail = "admin@mysite.com";
+               var adminFirstName = "AdminFirst";
+               var adminLastName = "AdminLas";
+               var adminCountry = "BG";
+               var adminAddress = "Niama adres";
+
 
                var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
@@ -62,7 +67,11 @@
                   adminUser = new Customer
                   {
                      Email = adminEmail,
-                     UserName = adminEmail
+                     UserName = adminEmail,
+                     FirstName = adminFirstName,
+                     LastName = adminLastName,
+                     Country = adminCountry,
+                     Address = adminAddress,
                     
                   };
                   await userManager.CreateAsync(adminUser, "admin12");
