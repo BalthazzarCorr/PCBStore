@@ -11,34 +11,57 @@
    using Model;
 
    public class AdminUserService : IAdminUserService
-    {
-       private readonly PcbStoreDbContext _db;
-       private readonly UserManager<Customer> _userManager;
+   {
+      
+      private readonly UserManager<Customer> _userManager;
+      private readonly PcbStoreDbContext _db;
 
-       public AdminUserService(PcbStoreDbContext db, UserManager<Customer> userManager)
-       {
-          this._db = db;
-          this._userManager = userManager;
-       }
+      public AdminUserService( UserManager<Customer> userManager,PcbStoreDbContext db)
+      {
+         
+         this._userManager = userManager;
+         this._db = db;
+      }
 
-       public async Task<IEnumerable<AdminUserListingModel>> AllAsync()
-       {
-          List<AdminUserListingModel> list = new List<AdminUserListingModel>();
+      public async Task<IEnumerable<AdminUserListingModel>> AllAsync()
+      {
+         List<AdminUserListingModel> list = new List<AdminUserListingModel>();
 
-          foreach (var user in _userManager.Users.ToList())
-          {
-             list.Add(new AdminUserListingModel()
-             {
-                Id = user.Id,
-                Username = user.UserName,
-                Email = user.Email,
-                CurrentRole = await _userManager.GetRolesAsync(user)
-             });
-          }
+         foreach (var user in _userManager.Users.ToList())
+         {
+            list.Add(new AdminUserListingModel()
+            {
+               Id = user.Id,
+               FirstName = user.FirstName,
+               LastName = user.LastName,
+               Username = user.UserName,
+               Email = user.Email,
+               CurrentRole = await _userManager.GetRolesAsync(user)
+            });
+         }
 
-          return  list;
-         //return await this._db.Users.ProjectTo<AdminUserListingModel>().ToListAsync();
-       }
+         return list;
+         
+      }
 
+      public async Task<CustomerEditModel> Edit(string email)
+         => await this._db.Users.Where(s => s.Email == email).ProjectTo<CustomerEditModel>().FirstOrDefaultAsync();
+
+      //public void Edit(string email, CustomerEditModel model)
+      //{
+      //   this.
+      //}
+
+
+      //public Task<CustomerEditModel> Edit(string email)
+      //{
+      //   var user = _userManager.FindByEmailAsync(email);
+
+      //   var userInfo = new CustomerEditModel
+      //   {
+
+      //   };
+
+      //}
    }
 }

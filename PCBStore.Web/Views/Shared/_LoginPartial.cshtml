@@ -10,8 +10,18 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                @if (User.IsInRole(WebConstants.AdministratorRole))
+                {
+
+                    <li><a asp-area="Admin" asp-controller="Customers" asp-action="Index">
+                        <i class="fa fw fa-sliders" aria-hidden="true"></i>
+                        <span class="nav-link">Settings</span>
+                    </a></li>
+                    
+                }
             </li>
             <li>
+                
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
             </li>
         </ul>
@@ -20,6 +30,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
+      
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
     </ul>

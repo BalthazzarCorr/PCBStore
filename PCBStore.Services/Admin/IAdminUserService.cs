@@ -8,5 +8,9 @@
    public interface IAdminUserService
    {
       Task<IEnumerable<AdminUserListingModel>> AllAsync();
+
+      Task<CustomerEditModel> Edit(string email);
+
+     //void  Edit(string email, CustomerEditModel model);
    }
 }

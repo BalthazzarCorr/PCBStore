@@ -10,6 +10,12 @@
       {
          tempData[TempDataSuccessMessageKey] = message;
       }
+
+
+      public static void ErrorMessage(this ITempDataDictionary tempData, string message)
+      {
+         tempData[TempDataErrorMessageKey] = message;
+      }
    }
 }
 

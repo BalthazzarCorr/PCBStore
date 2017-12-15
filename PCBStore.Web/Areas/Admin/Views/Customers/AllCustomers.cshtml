@@ -5,61 +5,72 @@
 
 <div class="content-wrapper">
     <div class="container-fluid">
+        @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+        {
+            <div class="alert alert-success">
+                @TempData[WebConstants.TempDataSuccessMessageKey]
+            </div>
+        }
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fa fa-table"></i> Customers
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table  table-striped table-dark" id="dataTable"  cellspacing="0">
+                    <table class="table  table-striped table-dark" id="dataTable" cellspacing="0">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add User</button>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                         <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Current Roles</th>
-                                <th scope="col">Role</th>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Current Roles</th>
+                            <th scope="col">Role</th>
 
-                            </tr>
+                        </tr>
                         </thead>
                         <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Current Roles</th>
-                                <th>Role</th>
-                            </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Current Roles</th>
+                            <th>Role</th>
+                        </tr>
                         </tfoot>
                         <tbody>
-                            @foreach (var customer in Model.Users)
-                            {
-                                <tr scope="row">
-                                    <td>@customer.Username</td>
-                                    <td >@customer.Email</td>
-                                    <td >
-                                        @foreach (var role in @customer.CurrentRole)
-                                        {
-                                            @role <br/>
-                                        }
-                                    </td>
-                                    <td>
-                                        <form asp-controller="Customers" asp-action="AddToRole">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="hidden" name="UserId" value="@customer.Id" />
-                                                    <select name="Role" asp-items="Model.Roles" class="form-control"></select>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input class="btn btn-sm btn-primary" type="submit" value="Add Role" />
-                                                </div>
+                        @foreach (var customer in Model.Users)
+                        {
+                            <tr scope="row">
+                                <td>@customer.FirstName @customer.LastName</td>
+                                <td><a asp-controller="Customers" asp-action="DeleteCustomer" asp-route-email="@customer.Email" >@customer.Email</a></td>
+                                <td >
+                                    @foreach (var role in @customer.CurrentRole)
+                                    {
+                                        @role
+                                        <br/>
+                                    }
+                                </td>
+                                <td>
+                                    <form asp-controller="Customers" asp-action="AddToRole">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <input type="hidden" name="UserId" value="@customer.Id"/>
+                                                <select name="Role" asp-items="Model.Roles" class="form-control"></select>
                                             </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                                
-                            }
+                                            <div class="col-md-4">
+                                                <input class="btn btn-sm btn-primary" type="submit" value="Add"/>
+                                                <input type="hidden" name="UserId" value="@customer.Id"/>
+                                                <input asp-controller="Customers" asp-action="RemoveFromRole" class="btn btn-sm btn-danger" type="submit" value="Remove"/>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </td>
+                            </tr>
+
+
+                        }
                         </tbody>
                     </table>
                 </div>
