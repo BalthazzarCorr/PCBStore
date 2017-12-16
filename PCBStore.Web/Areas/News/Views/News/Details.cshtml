@@ -1,11 +1,36 @@
-﻿@model ArticleDetailsModel
+﻿@model ArticleWithCommetsModel
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = Model.ArticleDetails.Title;
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<h4><em>published by @Model.Author on @Model.PublishDate.ToShortDateString()</em></h4>
+<h4><em>published by @Model.ArticleDetails.Author on @Model.ArticleDetails.PublishDate.ToShortDateString()</em></h4>
 <div>
-    @Html.Raw(Model.Content)
+    @Html.Raw(Model.ArticleDetails.Content)
 </div>
+
+
+<hr/>
+
+
+<h4>Comments</h4>
+<form method="post" asp-action="Details" >
+    <div>
+       @Html.TextArea("content", htmlAttributes: new {@id="comments",@style = "width: 450px;height: 150px", @placeholder = "Enter Comments here" })
+    </div>
+    <input type="hidden" name="ArticleId" value="@Model.ArticleDetails.Id"/>
+    <input type="submit" value="Submit">
+</form>
+
+
+<hr />
+@foreach (var comment in Model.Comments)
+{
+
+    <h6><em>published by @comment.Author on @comment.PublishDate.ToShortDateString()</em></h6>
+    <div>
+        @Html.Raw(comment.Content)
+    </div>
+
+}

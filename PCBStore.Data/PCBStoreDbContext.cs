@@ -12,12 +12,16 @@
       }
 
       public DbSet<NewsArticle> NewsArticles { get; set; }
+      public DbSet<Comment> Commets { get; set; }
 
       protected override void OnModelCreating(ModelBuilder builder)
       {
 
 
          builder.Entity<NewsArticle>().HasOne(c => c.Author).WithMany(c => c.NewsArticles).HasForeignKey(c => c.AuthorId);
+
+         builder.Entity<Comment>().HasOne(c => c.Author).WithMany(c => c.Comments).HasForeignKey(c => c.AuthorId);
+
 
 
          base.OnModelCreating(builder);

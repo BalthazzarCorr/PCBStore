@@ -4,6 +4,7 @@
    using AutoMapper;
    using Common.Mapping;
    using Data.Models;
+
    public class ArticleListingModel : IMapFrom<NewsArticle>, IHaveCustomMapping
    {
       public int Id { get; set; }

@@ -23,9 +23,11 @@
       [Required]
       public string Country { get; set; }
 
-      public ICollection<Order> Orders { get; set; }
+      public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-      public List<NewsArticle> NewsArticles { get; set; } = new List<NewsArticle>();
+      public ICollection<NewsArticle> NewsArticles { get; set; } = new List<NewsArticle>();
+
+      public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
    }
 }

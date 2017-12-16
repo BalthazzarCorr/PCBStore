@@ -22,5 +22,7 @@
        public string AuthorId { get; set; }
 
        public Customer Author { get; set; }
+
+
    }
 }

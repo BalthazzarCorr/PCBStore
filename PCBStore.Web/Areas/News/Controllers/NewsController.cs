@@ -10,6 +10,7 @@
    using Models;
    using Services.Html;
    using Services.News;
+   using Services.News.Models;
    using static WebConstants;
 
 
@@ -23,11 +24,16 @@
 
       private readonly INewsArticleService _newsArticles;
 
-      public NewsController(IHtmlService html, UserManager<Customer> customers, INewsArticleService newsArticles)
+      private readonly ICommentService _comments;
+
+     
+      public NewsController(IHtmlService html, UserManager<Customer> customers, INewsArticleService newsArticles,
+         ICommentService comments)
       {
          this._html = html;
          this._newsArticles = newsArticles;
          this._customers = customers;
+         this._comments = comments;
       }
 
       [ValidateModelState]
@@ -64,8 +70,29 @@
 
       [AllowAnonymous]
       public async Task<IActionResult> Details(int id)
-         => this.ViewOrNotFound(await this._newsArticles.ArticleDetails(id));
+      {
+         var article = await this._newsArticles.ArticleDetails(id);
+         var commets = await this._comments.AllAsync(id);
+
+         return View(new ArticleWithCommetsModel
+         {
+            ArticleDetails = article,
+            Comments = commets
+         });
+      }
 
 
+      [HttpPost]
+      [AllowAnonymous]
+      public RedirectToActionResult Details([FromForm]string content, int articleId)
+      {
+       
+         var authorId = _customers.GetUserId(User);
+
+         this._comments.CreateAsync(content, authorId, articleId);
+
+         return RedirectToAction(nameof(Details), new { id = articleId });
+
+      }
    }
 }

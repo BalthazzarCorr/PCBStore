@@ -1,6 +1,7 @@
 ﻿namespace PCBStore.Web.Infrastructure.Extensions
 {
    using Microsoft.AspNetCore.Mvc;
+   using Services.News.Models;
 
    public static class ControllerExtensions
     {

@@ -11,7 +11,7 @@
    using Models;
    using static ServicesConstants;
 
-   public class NewsArticleService: INewsArticleService
+   public class NewsArticleService : INewsArticleService
    {
 
       private readonly PcbStoreDbContext _db;
@@ -28,6 +28,13 @@
          .Skip((page - 1) * NewssArticlesPageSize)
          .Take(NewssArticlesPageSize)
          .ProjectTo<ArticleListingModel>()
+         .ToListAsync();
+
+      public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)=> await this._db.Commets
+         .Where(c => c.ArticleId == articleId)
+         .OrderByDescending(a => a.PublishDate)
+         .Take(ComentsPageSize)
+         .ProjectTo<CommentsListingModel>()
          .ToListAsync();
 
       public async Task CreateAsync(string title, string content, string authorId)
@@ -51,8 +58,8 @@
 
 
       public async Task<int> TotalAsyncArticles()
-               => await  this._db.NewsArticles.CountAsync();
-      
+               => await this._db.NewsArticles.CountAsync();
+
 
    }
 }
