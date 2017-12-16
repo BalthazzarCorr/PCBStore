@@ -2,6 +2,6 @@
 {
    public class ServicesConstants
     {
-      public const int NewssArticlesPageSize = 25;
+      public const int NewssArticlesPageSize = 10;
    }
 }

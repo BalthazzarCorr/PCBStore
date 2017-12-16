@@ -51,9 +51,8 @@
 
 
       public async Task<int> TotalAsyncArticles()
-            => await this._db.NewsArticles.CountAsync();
+               => await  this._db.NewsArticles.CountAsync();
       
 
-   
    }
 }

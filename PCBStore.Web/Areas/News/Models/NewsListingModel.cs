@@ -11,7 +11,7 @@
 
       public int TotalArticles { get; set; }
 
-      public int TotalPages => (int)Math.Ceiling((double)(this.TotalArticles / ServicesConstants.NewssArticlesPageSize));
+      public int TotalPages => (int)Math.Ceiling(((double) this.TotalArticles / ServicesConstants.NewssArticlesPageSize));
 
       public int CurrentPage { get; set; }
 
