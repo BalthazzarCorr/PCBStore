@@ -13,6 +13,6 @@ namespace PCBStore.Services.News
 
        Task<int> TotalAsyncArticles();
 
-       //Task<IEnumerable<ArticleListingModel>> AllAsync(int page = 1);
+       Task<IEnumerable<ArticleListingModel>> AllAsync(int page = 1);
    }
 }

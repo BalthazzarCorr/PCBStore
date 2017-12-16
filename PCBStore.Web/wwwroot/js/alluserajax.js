@@ -47,7 +47,7 @@ function Add() {
 
     };
     $.ajax({
-        url: "/admin/customers/add",
+        url: "/customers/add",
         data: JSON.stringify(empObj),
         type: "POST",
         contentType: "application/json;charset=utf-8",

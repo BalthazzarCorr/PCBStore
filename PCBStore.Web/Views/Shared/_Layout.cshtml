@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="~/css/passwordStrength.css" />
         <link rel="stylesheet" href="~/js/jquery-te-1.4.0.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.css"  />
+        <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" type="text/css" href="~/vendor/font-awesome/css/font-awesome.min.css">
 
     </environment>
@@ -38,11 +38,9 @@
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole(WebConstants.AdministratorRole))
                     {
-                        <li><a asp-area="Admin" asp-controller="Customers" asp-action="AllCustomers">Customers</a></li>
                         <li><a asp-area="News" asp-controller="News" asp-action="Create">Create News Article </a></li>
-
                     }
-                    <li><a asp-area="News" asp-controller="News" asp-action="All">Home</a></li>
+                    <li><a asp-area="News" asp-controller="News" asp-action="Index">News </a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>

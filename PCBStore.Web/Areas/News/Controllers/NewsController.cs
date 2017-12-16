@@ -35,15 +35,16 @@
       public IActionResult Create() => View();
 
       [AllowAnonymous]
+      [Route("[action]")]
       public async Task<IActionResult> Index(int page = 1)
       {
-         //return View(new NewsListingModel()
-         //{
-         //   Articles = await this._articles.AllAsync(page),
-         //   TotalArticles = await this._articles.TotalAsyncArticles(),
-         //   CurrentPage = page
-         //});
-         return View();
+         return View(new NewsListingModel()
+         {
+            Articles = await this._newsArticles.AllAsync(page),
+            TotalArticles = await this._newsArticles.TotalAsyncArticles(),
+            CurrentPage = page
+         });
+         //return View();
       }
 
       [Route("[action]")]

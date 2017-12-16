@@ -79,6 +79,12 @@
             //   defaults: new {area="News",controller = "News", action = "Create"});
 
             routes.MapRoute(
+               name: "news",
+               template: "news/news/details/{id}/{title}",
+               defaults: new {area = "News", controller = "News", action = "Details"}
+            );
+
+            routes.MapRoute(
                name: "areas",
                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
             );

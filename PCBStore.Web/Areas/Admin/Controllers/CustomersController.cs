@@ -63,7 +63,7 @@
       }
 
       [HttpPost]
-      public JsonResult Add([FromBody] RegisterViewModel model)
+      public  JsonResult Add([FromBody] RegisterViewModel model)
       {
          var customer = new Customer
          {
@@ -75,8 +75,9 @@
             Country = model.Country,
 
          };
-
+         
          return Json(_userManager.CreateAsync(customer, model.Password));
+
       }
 
 
