@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using PCBStore.Data;
-using PCBStore.Data.Models.Enums;
 using System;
 
 namespace PCBStore.Data.Migrations
 {
     [DbContext(typeof(PcbStoreDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171216215945_tableCommentsRemovedArticleAsEntity")]
+    partial class tableCommentsRemovedArticleAsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,31 +148,7 @@ namespace PCBStore.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("Manufacturer");
-
-                    b.Property<string>("Name");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("Type");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Components");
+                    b.ToTable("Commets");
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.Customer", b =>
@@ -275,7 +251,7 @@ namespace PCBStore.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -328,13 +304,6 @@ namespace PCBStore.Data.Migrations
                     b.HasOne("PCBStore.Data.Models.Customer", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
-                });
-
-            modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
-                {
-                    b.HasOne("PCBStore.Data.Models.Customer", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.NewsArticle", b =>

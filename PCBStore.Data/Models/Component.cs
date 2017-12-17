@@ -17,11 +17,9 @@
 
       [Required]
       public ComponentType Type { get; set; }
-
-      public int ManufacturerId { get; set; }
-
+      
       [Required]
-      public Manufacturer Manufacturer { get; set; }
+      public ManufacturersEnum Manufacturer { get; set; }
 
       [Required]
       [Price(ErrorMessage = "Price is required and must be a positive number.")]

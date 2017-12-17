@@ -47,21 +47,6 @@
       public async Task<CustomerEditModel> Edit(string email)
          => await this._db.Users.Where(s => s.Email == email).ProjectTo<CustomerEditModel>().FirstOrDefaultAsync();
 
-      //public void Edit(string email, CustomerEditModel model)
-      //{
-      //   this.
-      //}
-
-
-      //public Task<CustomerEditModel> Edit(string email)
-      //{
-      //   var user = _userManager.FindByEmailAsync(email);
-
-      //   var userInfo = new CustomerEditModel
-      //   {
-
-      //   };
-
-      //}
+     
    }
 }

@@ -12,10 +12,7 @@
       public Customer Author { get; set; }
 
       public int ArticleId { get; set; }
-
-      public NewsArticle NewsArticle { get; set; }
-           
-
+      
       [Required]
       [MaxLength(10000)]
       public string Content { get; set; }

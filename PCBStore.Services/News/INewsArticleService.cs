@@ -6,15 +6,15 @@ namespace PCBStore.Services.News
    using Models;
 
    public interface INewsArticleService
-    {
+   {
       Task CreateAsync(string title, string content, string authorId);
 
-       Task<ArticleDetailsModel> ArticleDetails(int id);
+      Task<ArticleDetailsModel> ArticleDetails(int id);
 
-       Task<int> TotalAsyncArticles();
+      Task<int> TotalAsyncArticles();
 
-       Task<IEnumerable<ArticleListingModel>> AllAsync(int page = 1);
+      Task<IEnumerable<ArticleListingModel>> AllAsync(int page = 1);
 
-       //Task <IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId);
-    }
+      //Task <IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId);
+   }
 }

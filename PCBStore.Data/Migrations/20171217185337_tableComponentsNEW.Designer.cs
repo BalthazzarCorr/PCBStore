@@ -12,9 +12,10 @@ using System;
 namespace PCBStore.Data.Migrations
 {
     [DbContext(typeof(PcbStoreDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171217185337_tableComponentsNEW")]
+    partial class tableComponentsNEW
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +159,7 @@ namespace PCBStore.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("Manufacturer");
+                    b.Property<int>("ManufacturerId");
 
                     b.Property<string>("Name");
 
@@ -169,6 +170,8 @@ namespace PCBStore.Data.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManufacturerId");
 
                     b.HasIndex("UserId");
 
@@ -238,6 +241,18 @@ namespace PCBStore.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("PCBStore.Data.Models.Manufacturer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Manufacturer");
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.NewsArticle", b =>
@@ -332,6 +347,11 @@ namespace PCBStore.Data.Migrations
 
             modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
                 {
+                    b.HasOne("PCBStore.Data.Models.Manufacturer", "Manufacturer")
+                        .WithMany("Components")
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PCBStore.Data.Models.Customer", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

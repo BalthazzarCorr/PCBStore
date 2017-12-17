@@ -37,7 +37,7 @@
       }
 
       public async Task<IEnumerable<CommentsListingModel>> AllAsync(int articleId)
-         => await this._db.Commets
+         => await this._db.Comments
             .OrderByDescending(d => d.PublishDate)
             .Where(c => c.ArticleId == articleId)
             .ProjectTo<CommentsListingModel>().ToListAsync();

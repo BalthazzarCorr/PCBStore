@@ -1,0 +1,62 @@
+﻿@model ComponentLisitingViewModel
+@{
+    ViewData["Title"] = "All Components";
+}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+        {
+            <div class="alert alert-success">
+                @TempData[WebConstants.TempDataSuccessMessageKey]
+            </div>
+        }
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Components
+            </div>
+            <div class="card-body">
+                <a asp-action="AddComponent" class="btn btn-primary">Add Component</a>
+                <div class="table-responsive">
+                    <table class="table  table-striped table-dark" id="dataTable" cellspacing="0">
+                        <br />
+                        <br />
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Manufacturer</th>
+                                <th scope="col">Price</th>
+
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Manufacturer</th>
+                                <th scope="col">Price</th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var component in Model.Componets)
+                            {
+                                <tr scope="row">
+                                    <td>@component.Name </td>
+                                    <td>@component.Type </td>
+                                    <td>@component.Manufacturer </td>
+                                    <td>@component.Price </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

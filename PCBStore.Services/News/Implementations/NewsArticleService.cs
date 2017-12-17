@@ -30,7 +30,7 @@
          .ProjectTo<ArticleListingModel>()
          .ToListAsync();
 
-      public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)=> await this._db.Commets
+      public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)=> await this._db.Comments
          .Where(c => c.ArticleId == articleId)
          .OrderByDescending(a => a.PublishDate)
          .Take(ComentsPageSize)

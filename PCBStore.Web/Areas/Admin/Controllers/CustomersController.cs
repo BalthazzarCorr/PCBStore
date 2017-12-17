@@ -149,6 +149,11 @@
       [HttpPost]
       public async Task<IActionResult> EditCustomer(string email ,CustomerEditModel model)
       {
+         if (!ModelState.IsValid)
+         {
+            return BadRequest(ModelState);
+         }
+
          var user = await _userManager.FindByEmailAsync(email);
         
          

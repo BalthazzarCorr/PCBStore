@@ -13,7 +13,7 @@
    using Services.News.Models;
    using static WebConstants;
 
-
+   [Route("[action]")]
    [Area(NewsArea)]
    [Authorize(Roles = ModeratorRole)]
    public class NewsController : Controller
@@ -37,11 +37,9 @@
       }
 
       [ValidateModelState]
-      [Route("[action]")]
       public IActionResult Create() => View();
 
       [AllowAnonymous]
-      [Route("[action]")]
       public async Task<IActionResult> Index(int page = 1)
       {
          return View(new NewsListingModel()
@@ -50,14 +48,19 @@
             TotalArticles = await this._newsArticles.TotalAsyncArticles(),
             CurrentPage = page
          });
-         //return View();
+        
       }
 
-      [Route("[action]")]
+      
       [HttpPost]
       [ValidateModelState]
       public async Task<IActionResult> Create(NewsArticleCreatingModel model)
       {
+         if (!ModelState.IsValid)
+         {
+            return BadRequest(ModelState);
+         }
+
          model.Content = this._html.Sanitize(model.Content);
 
          var userId = _customers.GetUserId(User);

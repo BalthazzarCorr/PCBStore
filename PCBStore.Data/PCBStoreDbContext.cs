@@ -12,7 +12,10 @@
       }
 
       public DbSet<NewsArticle> NewsArticles { get; set; }
-      public DbSet<Comment> Commets { get; set; }
+      public DbSet<Comment> Comments { get; set; }
+      public DbSet<Order> Orders { get; set; }
+      public DbSet<Component> Components { get; set; }
+
 
       protected override void OnModelCreating(ModelBuilder builder)
       {
@@ -22,6 +25,8 @@
 
          builder.Entity<Comment>().HasOne(c => c.Author).WithMany(c => c.Comments).HasForeignKey(c => c.AuthorId);
 
+         builder.Entity<Order>().HasOne(c => c.Customer).WithMany(c => c.Orders).HasForeignKey(c => c.CustomerId);
+         
 
 
          base.OnModelCreating(builder);
