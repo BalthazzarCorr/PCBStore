@@ -92,6 +92,15 @@
        
          var authorId = _customers.GetUserId(User);
 
+         if (authorId == null )
+         {
+            TempData.ErrorMessage($"You must be a registered customer to comment on articles");
+
+            return RedirectToAction(nameof(Details), new {id = articleId});
+
+         }
+
+
          this._comments.CreateAsync(content, authorId, articleId);
 
          return RedirectToAction(nameof(Details), new { id = articleId });

@@ -27,8 +27,8 @@ var x3 = -900;
 var y3 = 180;
 
 
-seed1 = getRandomInt(400, 460);
-seed2 = getRandomInt(400, 460);
+seed1 = getRandomInt(400, 490);
+seed2 = getRandomInt(400, 590);
 var rightLimit = 1400;
 var increment = 1;
 
@@ -73,7 +73,7 @@ function trace1(seed) {
 }
 
 function trace2(seed) {
-    ctx.strokeStyle = "#FFF";
+    ctx.strokeStyle = "#7df9ff";
 
     ctx.moveTo(x3, y3);
     ctx.lineTo(x3 + 1, y3);

@@ -32,7 +32,7 @@
 
       public IActionResult Contact()
       {
-         ViewData["Message"] = "Your contact page.";
+         ViewData["Message"] = "We Would Love to Working with You";
 
          return View();
       }

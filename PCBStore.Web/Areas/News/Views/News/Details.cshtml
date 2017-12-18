@@ -6,6 +6,12 @@
 <h2>@ViewData["Title"]</h2>
 
 <h4><em>published by @Model.ArticleDetails.Author on @Model.ArticleDetails.PublishDate.ToShortDateString()</em></h4>
+@if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
+{
+    <div class="alert alert-danger">
+        @TempData[WebConstants.TempDataErrorMessageKey]
+    </div>
+}
 <div>
     @Html.Raw(Model.ArticleDetails.Content)
 </div>

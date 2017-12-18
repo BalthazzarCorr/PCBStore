@@ -12,6 +12,7 @@
    using Models.Customers;
    using Services.Admin;
    using Services.Admin.Model;
+   using Services.News;
    using Web.Models.AccountViewModels;
    using static WebConstants;
 
@@ -21,29 +22,52 @@
    {
       private readonly IAdminUserService _users;
       private readonly RoleManager<IdentityRole> _roleManager;
+      private readonly IComponentService _components;
       private readonly UserManager<Customer> _userManager;
-
+      private readonly INewsArticleService _newsArticles;
 
 
       public CustomersController(IAdminUserService users, RoleManager<IdentityRole> roleManager,
-         UserManager<Customer> userManager)
+         UserManager<Customer> userManager, IComponentService components, INewsArticleService newsArticles)
       {
          this._users = users;
          this._roleManager = roleManager;
          this._userManager = userManager;
-
+         this._components = components;
+         this._newsArticles = newsArticles;
       }
 
-      public IActionResult Index()
+      public async Task<IActionResult> Index()
       {
-         return View();
+
+         var users = await this._users.AllAsync();
+
+         var numberOfCustomers = users.Count();
+
+         var components = await this._components.AllAsync();
+
+         var numberOfComponents = components.Count();
+
+         var articles = await this._newsArticles.AllAsync();
+
+         var numberOfArticles = articles.Count();
+
+
+
+         return View( new AdminPanelListingModel
+         {
+            NumberOfCustomers = numberOfCustomers,
+            NumberOfComponents = numberOfComponents,
+            NumberOfArticles = numberOfArticles
+            
+         });
       }
 
       public async Task<IActionResult> AllCustomers()
       {
          var users = await this._users.AllAsync();
 
-
+     
 
          var roles = await this._roleManager.Roles.Select(r => new SelectListItem
          {

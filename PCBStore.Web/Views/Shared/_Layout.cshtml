@@ -34,6 +34,12 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PCBStore</a>
             </div>
             <div class="navbar-collapse collapse">
+                @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+                {
+                    <div class="alert alert-success">
+                        @TempData[WebConstants.TempDataSuccessMessageKey]
+                    </div>
+                }
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole(WebConstants.AdministratorRole))
                     {
