@@ -26,7 +26,7 @@
 
       private readonly ICommentService _comments;
 
-     
+
       public NewsController(IHtmlService html, UserManager<Customer> customers, INewsArticleService newsArticles,
          ICommentService comments)
       {
@@ -48,10 +48,10 @@
             TotalArticles = await this._newsArticles.TotalAsyncArticles(),
             CurrentPage = page
          });
-        
+
       }
 
-      
+
       [HttpPost]
       [ValidateModelState]
       public async Task<IActionResult> Create(NewsArticleCreatingModel model)
@@ -89,19 +89,27 @@
       [AllowAnonymous]
       public RedirectToActionResult Details([FromForm]string content, int articleId)
       {
-       
+
          var authorId = _customers.GetUserId(User);
 
-         if (authorId == null )
+         var contentSanitaizet = this._html.Sanitize(content);
+
+
+         if (authorId == null)
          {
             TempData.ErrorMessage($"You must be a registered customer to comment on articles");
 
-            return RedirectToAction(nameof(Details), new {id = articleId});
+            return RedirectToAction(nameof(Details), new { id = articleId });
 
          }
 
+         if (string.IsNullOrEmpty(contentSanitaizet))
+         {
+            TempData.ErrorMessage($"Can`t write html or Js scripts here buddy");
+            return RedirectToAction(nameof(Details), new { id = articleId });
+         }
 
-         this._comments.CreateAsync(content, authorId, articleId);
+         this._comments.CreateAsync(contentSanitaizet, authorId, articleId);
 
          return RedirectToAction(nameof(Details), new { id = articleId });
 

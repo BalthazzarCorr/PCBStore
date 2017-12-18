@@ -21,13 +21,36 @@
       {
 
 
-         builder.Entity<NewsArticle>().HasOne(c => c.Author).WithMany(c => c.NewsArticles).HasForeignKey(c => c.AuthorId);
+         builder
+            .Entity<NewsArticle>()
+            .HasOne(c => c.Author)
+            .WithMany(c => c.NewsArticles)
+            .HasForeignKey(c => c.AuthorId);
 
-         builder.Entity<Comment>().HasOne(c => c.Author).WithMany(c => c.Comments).HasForeignKey(c => c.AuthorId);
+         builder
+            .Entity<Comment>()
+            .HasOne(c => c.Author)
+            .WithMany(c => c.Comments)
+            .HasForeignKey(c => c.AuthorId);
 
-         builder.Entity<Order>().HasOne(c => c.Customer).WithMany(c => c.Orders).HasForeignKey(c => c.CustomerId);
+         builder.Entity<Order>()
+            .HasOne(c => c.Customer)
+            .WithMany(c => c.Orders)
+            .HasForeignKey(c => c.CustomerId);
+
+         builder.Entity<OrderComponents>()
+            .HasKey(st => new {st.OrderId, st.ComponentId});
+
+         builder.Entity<OrderComponents>()
+            .HasOne(o => o.Order)
+            .WithMany(c => c.Components)
+            .HasForeignKey(c => c.ComponentId);
+
+         builder.Entity<OrderComponents>()
+            .HasOne(c => c.Component)
+            .WithMany(o => o.Orders)
+            .HasForeignKey(c => c.ComponentId);
          
-
 
          base.OnModelCreating(builder);
          // Customize the ASP.NET Identity model and override the defaults if needed.

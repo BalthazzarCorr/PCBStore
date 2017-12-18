@@ -1,5 +1,9 @@
 ﻿namespace PCBStore.Data.Models
 {
+   using System.Collections.Generic;
+   using System.ComponentModel.DataAnnotations;
+   using static  DataConstants;
+
    public class Order
    {
       public int Id { get; set; }
@@ -8,6 +12,8 @@
 
       public Customer Customer { get; set; }
 
-      
+      public ICollection<OrderComponents> Components { get; set; } = new List<OrderComponents>();
+
+     
    }
 }

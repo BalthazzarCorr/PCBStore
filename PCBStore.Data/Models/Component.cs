@@ -1,6 +1,6 @@
 ﻿namespace PCBStore.Data.Models
 {
-
+   using System.Collections.Generic;
    using System.ComponentModel.DataAnnotations;
    using Common.Validation;
    using Enums;
@@ -28,5 +28,8 @@
       public string UserId { get; set; }
 
       public Customer User { get; set; }
+
+
+      public ICollection<OrderComponents> Orders { get; set; } = new List<OrderComponents>();
    }
 }

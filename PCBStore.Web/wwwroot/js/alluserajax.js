@@ -62,6 +62,7 @@ function Add() {
         }
     });
 
+    return true;
 }
 
 //Function for clearing the textboxes

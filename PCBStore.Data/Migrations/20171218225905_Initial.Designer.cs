@@ -12,8 +12,8 @@ using System;
 namespace PCBStore.Data.Migrations
 {
     [DbContext(typeof(PcbStoreDbContext))]
-    [Migration("20171217185337_tableComponentsNEW")]
-    partial class tableComponentsNEW
+    [Migration("20171218225905_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,7 +159,7 @@ namespace PCBStore.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("ManufacturerId");
+                    b.Property<int>("Manufacturer");
 
                     b.Property<string>("Name");
 
@@ -170,8 +170,6 @@ namespace PCBStore.Data.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ManufacturerId");
 
                     b.HasIndex("UserId");
 
@@ -243,18 +241,6 @@ namespace PCBStore.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("PCBStore.Data.Models.Manufacturer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Manufacturer");
-                });
-
             modelBuilder.Entity("PCBStore.Data.Models.NewsArticle", b =>
                 {
                     b.Property<int>("Id")
@@ -291,6 +277,22 @@ namespace PCBStore.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PCBStore.Data.Models.OrderComponents", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ComponentId");
+
+                    b.Property<byte[]>("Schematic")
+                        .HasMaxLength(20971520);
+
+                    b.HasKey("OrderId", "ComponentId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.ToTable("OrderComponents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -347,11 +349,6 @@ namespace PCBStore.Data.Migrations
 
             modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
                 {
-                    b.HasOne("PCBStore.Data.Models.Manufacturer", "Manufacturer")
-                        .WithMany("Components")
-                        .HasForeignKey("ManufacturerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("PCBStore.Data.Models.Customer", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -369,6 +366,19 @@ namespace PCBStore.Data.Migrations
                     b.HasOne("PCBStore.Data.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("PCBStore.Data.Models.OrderComponents", b =>
+                {
+                    b.HasOne("PCBStore.Data.Models.Component", "Component")
+                        .WithMany("Orders")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PCBStore.Data.Models.Order", "Order")
+                        .WithMany("Components")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

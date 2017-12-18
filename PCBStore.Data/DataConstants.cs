@@ -19,5 +19,7 @@
 
       public const int LastNameMaxLenght = 100;
 
+      public const int SchematicAndPcbFileLength = 20 * 1024 * 1024;
+
    }
 }

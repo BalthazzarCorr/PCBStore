@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using PCBStore.Data;
+using PCBStore.Data.Models.Enums;
 using System;
 
 namespace PCBStore.Data.Migrations
 {
     [DbContext(typeof(PcbStoreDbContext))]
-    [Migration("20171216163317_tableComments")]
-    partial class tableComments
+    partial class PcbStoreDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,17 +142,37 @@ namespace PCBStore.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(10000);
 
-                    b.Property<int?>("NewsArticleId");
-
                     b.Property<DateTime>("PublishDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("NewsArticleId");
+                    b.ToTable("Comments");
+                });
 
-                    b.ToTable("Commets");
+            modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("Manufacturer");
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Components");
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.Customer", b =>
@@ -255,7 +275,23 @@ namespace PCBStore.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PCBStore.Data.Models.OrderComponents", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ComponentId");
+
+                    b.Property<byte[]>("Schematic")
+                        .HasMaxLength(20971520);
+
+                    b.HasKey("OrderId", "ComponentId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.ToTable("OrderComponents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -308,10 +344,13 @@ namespace PCBStore.Data.Migrations
                     b.HasOne("PCBStore.Data.Models.Customer", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
+                });
 
-                    b.HasOne("PCBStore.Data.Models.NewsArticle", "NewsArticle")
+            modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
+                {
+                    b.HasOne("PCBStore.Data.Models.Customer", "User")
                         .WithMany()
-                        .HasForeignKey("NewsArticleId");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.NewsArticle", b =>
@@ -326,6 +365,19 @@ namespace PCBStore.Data.Migrations
                     b.HasOne("PCBStore.Data.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("PCBStore.Data.Models.OrderComponents", b =>
+                {
+                    b.HasOne("PCBStore.Data.Models.Component", "Component")
+                        .WithMany("Orders")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PCBStore.Data.Models.Order", "Order")
+                        .WithMany("Components")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
