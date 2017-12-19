@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CartItemViewModel>
+@{
+    ViewData["Title"] = "Items";
+}
+
+<h2>Items</h2>
+
+@foreach (var item in Model)
+{
+    <div>
+        @item.Name - $@item.Price - Quantity; = @item.Quantity
+    </div>
+}
+<hr />
+TotalPrice : $@Model.Sum(p => p.Price);

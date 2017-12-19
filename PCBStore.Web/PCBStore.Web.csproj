@@ -25,9 +25,4 @@
     <ProjectReference Include="..\PCBStore.Services\PCBStore.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\PCB\Data\" />
-    <Folder Include="Areas\PCB\Models\" />
-  </ItemGroup>
-
 </Project>

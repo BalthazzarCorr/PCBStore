@@ -45,9 +45,12 @@
                     {
                         <li><a asp-area="News" asp-controller="News" asp-action="Create">Create News Article </a></li>
                     }
+
                     <li><a asp-area="News" asp-controller="News" asp-action="Index">News </a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="Orders" asp-controller="Orders" asp-action="Index">Shopping Cart</a></li>
+
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
