@@ -12,6 +12,8 @@
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
    using Services;
+   using Services.Order;
+   using Services.Order.Implementations;
 
    public class Startup
    {
@@ -44,6 +46,7 @@
          services.AddMvc(optinos => optinos.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
          services.AddRouting(routing => routing.LowercaseUrls = true);
          services.AddAntiforgery();
+         services.AddSingleton<IShoppingCartService,ShoppingCartService>();
          services.AddSession();
          services.AddDomainServices();
          services.AddAutoMapper();
@@ -70,6 +73,8 @@
          app.UseDatabaseMigration();
 
          app.UseAuthentication();
+
+         app.UseSession();
 
          app.UseMvc(routes =>
          {

@@ -28,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Areas\PCB\Data\" />
     <Folder Include="Areas\PCB\Models\" />
-    <Folder Include="Areas\PCB\Views\" />
   </ItemGroup>
 
 </Project>
