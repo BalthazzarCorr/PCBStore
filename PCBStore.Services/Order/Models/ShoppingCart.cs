@@ -7,10 +7,13 @@
    {
       private readonly IList<CartItem> items;
 
+
       public ShoppingCart()
       {
          this.items = new List<CartItem>();
       }
+
+      public IEnumerable<CartItem> Items => new List<CartItem>(this.items); 
 
       public void AddtoCart(int productId)
       {
@@ -42,12 +45,12 @@
 
          if (cartItems != null)
          {
-            this.items.RemoveAt(productId);
+            this.items.Remove(cartItems);
          }
       }
 
 
-      public IEnumerable<CartItem> Items => new List<CartItem>(this.items);
+     
 
    }
 }

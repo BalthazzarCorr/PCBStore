@@ -46,7 +46,7 @@
          services.AddMvc(optinos => optinos.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
          services.AddRouting(routing => routing.LowercaseUrls = true);
          services.AddAntiforgery();
-         services.AddSingleton<IShoppingCartService, ShoppingCartService>();
+         services.AddSingleton<IShoppingCartService, ShoppingCartServices>();
          services.AddSession();
          services.AddDomainServices();
          services.AddAutoMapper();

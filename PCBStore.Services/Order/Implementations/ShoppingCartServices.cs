@@ -2,20 +2,14 @@
 {
    using System.Collections.Concurrent;
    using System.Collections.Generic;
-   using System.Linq;
-   using Data;
-   using Data.Models;
    using Models;
 
-   public class ShoppingCartService : IShoppingCartService
+   public class ShoppingCartServices : IShoppingCartService
    {
       private readonly ConcurrentDictionary<string, ShoppingCart> _carts;
-      private readonly PcbStoreDbContext _db;
-
-
-      public ShoppingCartService(PcbStoreDbContext db)
+     public ShoppingCartServices()
       {
-         this._db = db;
+         
          this._carts = new ConcurrentDictionary<string, ShoppingCart>();
       }
 
@@ -33,22 +27,12 @@
 
          shoppingCart.RemoveFromCart(productId);
       }
-
-      //public Component GetItemsWithDetails(IEnumerable<int> itemsIds)
-      //               => this._db
-      //   .Components
-      //   .Where(pr => itemsIds
-      //   .Contains(pr.Id))
-      //   .Select(pr => new
-      //   {
-            
-      //   }).ToList()
-
-
+      
 
       public IEnumerable<CartItem> GetItems(string cartId)
       {
          var shoppingCart = GetShoppingCart(cartId);
+
          return new List<CartItem>(shoppingCart.Items);
       }
 

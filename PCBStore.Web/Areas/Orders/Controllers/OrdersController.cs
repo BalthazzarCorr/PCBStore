@@ -3,6 +3,7 @@
    using System.Linq;
    using System.Threading.Tasks;
    using Admin.Models.Components;
+   using AutoMapper.QueryableExtensions;
    using Data;
    using Infrastructure.Extensions;
    using Microsoft.AspNetCore.Mvc;
@@ -49,16 +50,22 @@
 
          var itemQuantities = items.ToDictionary(i => i.ProductId, i => i.Quantity);
 
+         //var itemsWithDetails = this._db.Components
+         //   .Where(pr => itemsIds
+         //   .Contains(pr.Id))
+         //   .Select(pr => new CartItemViewModel
+         //   {
+         //      Id = pr.Id,
+         //      Name = pr.Name,
+         //      Price = pr.Price,
+         //      ImgAddress = pr.ImgAddress
+
+         //   }).ToList();
+
          var itemsWithDetails = this._db.Components
             .Where(pr => itemsIds
-               .Contains(pr.Id))
-            .Select(pr => new CartItemViewModel
-            {
-               Id = pr.Id,
-               Name = pr.Name,
-               Price = pr.Price,
-
-            }).ToList();
+               .Contains(pr.Id)).ProjectTo<CartItemViewModel>().ToList();
+            
 
          itemsWithDetails.ForEach(i => i.Quantity = itemQuantities[i.Id]);
 
