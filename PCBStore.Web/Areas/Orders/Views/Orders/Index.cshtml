@@ -1,7 +1,79 @@
-﻿
+﻿@model ComponentLisitingViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Index</h2>
 
+@foreach (var item in Model.Componets)
+{
+
+<div class="container">
+    <div class="col-xs-12 col-md-6">
+        <!-- First product box start here-->
+        <div class="prod-info-main prod-wrap clearfix">
+
+            <div class="row">
+
+                <div class="col-md-5 col-sm-12 col-xs-12">
+
+                    <div class="product-image">
+
+                        <img src="~/images/@item.ImgAddress" class="img-responsive">
+                        </div>
+
+                </div>
+
+                <div class="col-md-7 col-sm-12 col-xs-12">
+
+                    <div class="product-deatil">
+
+                        <h5 class="name">
+
+                                @item.Name 
+
+                        </h5>
+
+                        <p class="price-container">
+
+                            <span>@item.Price</span>
+
+                        </p>
+
+                        <span class="tag1"></span>
+
+                    </div>
+
+                    <div class="description">
+
+                        <p>@item.Description </p>
+
+                    </div>
+
+                    <div class="product-info smart-form">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <a href="#" class="btn btn-danger">Add to cart</a>
+                                
+
+                            </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- end product -->
+
+    </div>
+
+
+}

@@ -9,5 +9,7 @@
       void CreateAsync(string content, string authorId,int articleId);
 
       Task<IEnumerable<CommentsListingModel>> AllAsync(int articleId);
+
+      void DeleteAsync(int id);
    }
 }

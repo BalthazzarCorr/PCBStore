@@ -36,6 +36,21 @@
          this._db.SaveChanges();
       }
 
+      public void DeleteAsync(int id)
+      {
+         var commentForDeleting = this._db.Comments.Find(id);
+
+         if (commentForDeleting != null)
+         {
+          
+         this._db.Remove(commentForDeleting);
+         this._db.SaveChanges();
+
+         }
+
+         
+      }
+
       public async Task<IEnumerable<CommentsListingModel>> AllAsync(int articleId)
          => await this._db.Comments
             .OrderByDescending(d => d.PublishDate)

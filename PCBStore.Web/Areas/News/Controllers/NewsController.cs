@@ -13,9 +13,9 @@
    using Services.News.Models;
    using static WebConstants;
 
-   [Route("[action]")]
+   
    [Area(NewsArea)]
-   [Authorize(Roles = ModeratorRole)]
+   [Authorize(Roles = ModeratorRole + "," + AdministratorRole)]
    public class NewsController : Controller
    {
       private readonly IHtmlService _html;
@@ -37,6 +37,7 @@
       }
 
       [ValidateModelState]
+      [Route("[controller]/[action]")]
       public IActionResult Create() => View();
 
       [AllowAnonymous]
@@ -87,7 +88,7 @@
 
       [HttpPost]
       [AllowAnonymous]
-      public RedirectToActionResult Details([FromForm]string content, int articleId)
+      public IActionResult Details([FromForm]string content, int articleId)
       {
 
          var authorId = _customers.GetUserId(User);
@@ -112,7 +113,15 @@
          this._comments.CreateAsync(contentSanitaizet, authorId, articleId);
 
          return RedirectToAction(nameof(Details), new { id = articleId });
+      }
 
+      
+      [Route("[action]/{commentId}/{articleId}")]
+      public IActionResult DeleteComment(int commentId,int articleId)
+      {
+        this._comments.DeleteAsync(commentId);
+
+         return RedirectToAction(nameof(Details), new {id = articleId});
       }
    }
 }

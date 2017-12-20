@@ -29,18 +29,46 @@
     <input type="submit" value="Submit">
 </form>
 
+@if (User.IsInRole(WebConstants.AdministratorRole) || User.IsInRole(WebConstants.ModeratorRole))
+{
 
-<div class="card">
+    <div class="card">
 
-    <hr style="border-color: black" />
-    <h5>Comment section</h5>
-    @foreach (var comment in Model.Comments)
-    {
-        <hr style="border-color: black" class="card" />
-        <h6><em>published by @comment.Author on @comment.PublishDate.ToShortDateString()</em></h6>
-        <div>
-            @Html.Raw(comment.Content)
-        </div>
-        <hr style="border-color: black" class="card" />
-    }
-</div>
+        <hr style="border-color: black"/>
+        <h5>Comment section</h5>
+        @foreach (var comment in Model.Comments)
+        {
+            <hr style="border-color: black" class="card"/>
+            <h6><em>published by @comment.Author on @comment.PublishDate.ToShortDateString()</em></h6>
+            <div>
+                @Html.Raw(comment.Content)
+            </div>
+            <div>
+                <input type="hidden" name="CommentId" value="@comment.Id"/>
+                <input type="hidden" name="ArticleId" value="@Model.ArticleDetails.Id"/>
+                <a asp-controller="News" asp-action="DeleteComment" asp-route-commentId="@comment.Id" asp-route-articleId="@Model.ArticleDetails.Id"  class="btn btn-danger">
+                    Delete
+                </a>
+            </div>
+            <hr style="border-color: black" class="card"/>
+        }
+    </div>
+}
+else
+{
+
+    <div class="card">
+
+        <hr style="border-color: black"/>
+        <h5>Comment section</h5>
+        @foreach (var comment in Model.Comments)
+        {
+            <hr style="border-color: black" class="card"/>
+            <h6><em>published by @comment.Author on @comment.PublishDate.ToShortDateString()</em></h6>
+            <div>
+                @Html.Raw(comment.Content)
+            </div>
+            <hr style="border-color: black" class="card"/>
+        }
+    </div>
+}

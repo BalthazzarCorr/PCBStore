@@ -46,12 +46,12 @@
          services.AddMvc(optinos => optinos.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
          services.AddRouting(routing => routing.LowercaseUrls = true);
          services.AddAntiforgery();
-         services.AddSingleton<IShoppingCartService,ShoppingCartService>();
+         services.AddSingleton<IShoppingCartService, ShoppingCartService>();
          services.AddSession();
          services.AddDomainServices();
          services.AddAutoMapper();
 
-        
+
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,25 +78,27 @@
 
          app.UseMvc(routes =>
          {
-
-
             //routes.MapRoute(
-            //   name: "news",
-            //   template: "news/news/details/{id}/{title}",
-            //   defaults: new {area = "News", controller = "News", action = "Details"}
+            //   name: "comments",
+            //   template: "news/deletecomment/{commentId}/{articleId}",
+            //   defaults: new {area = "News", controller = "News", action = "DeleteComment" }
             //);
 
-
+            routes.MapRoute(
+               name: "news",
+               template: "news/details/{id}/{title}",
+               defaults: new { area = "News", controller = "News", action = "Details" }
+            );
+            
             routes.MapRoute(
                name: "areas",
                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
             );
 
             routes.MapRoute(
-                   name: "default",
-                   template: "{controller=Home}/{action=Index}/{id?}");
+               name: "default",
+               template: "{controller=Home}/{action=Index}/{id?}");
 
-        
          });
       }
    }

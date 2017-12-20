@@ -29,6 +29,7 @@
 
       public Customer User { get; set; }
 
+      public string ImgAddress { get; set; }
 
       public ICollection<OrderComponents> Orders { get; set; } = new List<OrderComponents>();
    }
