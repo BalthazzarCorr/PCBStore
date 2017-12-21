@@ -2,8 +2,7 @@
 {
    using System;
    using Microsoft.AspNetCore.Http;
-   using Services.Order.Models;
-
+   
    public static class SessionExtension 
    {
       public const string SessionCartId = "Shopping_cart_Id";

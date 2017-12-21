@@ -1,0 +1,59 @@
+﻿@model OrderListingViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+        {
+            <div class="alert alert-success">
+                @TempData[WebConstants.TempDataSuccessMessageKey]
+            </div>
+        }
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Components
+            </div>
+            <div class="card-body">
+                @*<a asp-action="AddComponent" class="btn btn-primary">Add Component</a>*@
+                <div class="table-responsive">
+                    <table class="table  table-striped table-dark" id="dataTable" cellspacing="0">
+                        <br />
+                        <br />
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Components </th>
+                                <th scope="col">Total Price</th>
+                               
+
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Type</th>
+                               <th scope="col">Total Price</th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var component in Model.Orders)
+                            {
+                                <tr scope="row">
+                                    <td>@component.Customer.UserName </td>
+                                    <td>@component.Components.Count </td>
+                                    <td>@component.TotalPrice </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

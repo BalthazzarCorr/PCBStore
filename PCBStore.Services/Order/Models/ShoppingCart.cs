@@ -13,7 +13,7 @@
          this.items = new List<CartItem>();
       }
 
-      public IEnumerable<CartItem> Items => new List<CartItem>(this.items); 
+      public List<CartItem> Items => new List<CartItem>(this.items); 
 
       public void AddtoCart(int productId)
       {
@@ -50,7 +50,7 @@
       }
 
 
-     
+      public void Clear() => this.items.Clear();
 
    }
 }

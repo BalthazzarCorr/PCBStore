@@ -22,12 +22,12 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
 
 .product-quantity {
     float: left;
-    width: 10%;
+    width: 5%;
 }
 
 .product-removal {
     float: left;
-    width: 9%;
+    width: 5%;
 }
 
 .product-line-price {
@@ -129,10 +129,22 @@ label {
         font-size: 12px;
         border-radius: 3px;
     }
+.product .update-product {
+    border: 0;
+    padding: 4px 8px;
+    background-color: #00bfff;
+    color: #fff;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    font-size: 12px;
+    border-radius: 3px;
+}
 
-        .product .remove-product:hover {
+.product .remove-product:hover {
             background-color: #a44;
         }
+.product .update-product:hover {
+    background-color: #87ceeb;
+}
 
 /* Totals section */
 .totals .totals-item {

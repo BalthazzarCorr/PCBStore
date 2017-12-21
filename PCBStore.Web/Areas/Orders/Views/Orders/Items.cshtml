@@ -2,9 +2,15 @@
 @{
     ViewData["Title"] = "Shopping Cart";
 }
-<link href="~/css/shopingCart.css" rel="stylesheet"/>
+<link href="~/css/shopingCart.css" rel="stylesheet" />
+
+<br />
+<br />
+<br />
 
 <h1>@ViewData["Title"]</h1>
+
+
 
 <div class="shopping-cart">
 
@@ -18,56 +24,73 @@
     </div>
 
 
-@foreach (var item in Model)
-{
-    <div class="product">
-        <div class="product-image">
-            <img src="~/images/@item.ImgAddress">
-        </div>
-        <div class="product-details">
-            <div class="product-title">@item.Name</div>
-            <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
-        </div>
-        <div class="product-price">12.99</div>
-        <div class="product-quantity">
-            <input type="number" value="2" min="1">
-        </div>
-        <div class="product-removal">
-            <button class="remove-product">
-                Remove
-            </button>
-        </div>
-        <div class="product-line-price">25.98</div>
-    </div>
+    @foreach (var item in Model)
+    {
+        <div class="product">
+            <div class="product-image">
+                <img src="~/images/@item.ImgAddress">
+            </div>
+            <div class="product-details">
+                <div class="product-title">@item.Name</div>
+                <p class="product-description">@item.Description</p>
+            </div>
+            <div class="product-price">@item.Price</div>
 
+            <form method="post" asp-action="UpdateCart">
+                <div class="product-quantity">
+                    <input type="number" value="@item.Quantity" name="quantity" min="1">
+                </div>
+                <div class="product-removal">
+                    <input type="hidden" name="componentId" value="@item.Id" />
+                    <input type="hidden" id="quantity" />
+                    <button type="submit" class="update-product">
+                        Update
+                    </button>
+                </div>
+            </form>
+
+
+            <div class="product-removal">
+
+                <a asp-area="Orders" asp-controller="Orders" asp-action="RemoveFromCart" asp-route-componentId="@item.Id" class="remove-product">
+                    Remove
+                </a>
+            </div>
+            <div class="product-line-price">@(@item.Price * @item.Quantity)</div>
+        </div>
+
+        @*@Model.Sum(p => p.Price * p.Quantity)*@
+    }
+    <hr style="border-color: black" />
+    <a asp-area="Orders" asp-controller="Orders" asp-action="Index" class="btn-outline-info">Back to Components</a>
+
+
+    <div class="totals">
+
+        <div class="totals-item totals-item-total">
+            <label>Total</label>
+            <div class="totals-value" id="cart-total"></div>
+        </div>
+
+    </div>
     <div>
-        @item.Name - $@item.Price - Quantity - @item.Quantity
+        <input type="file" class="btn-success" style="display: none" accept=".zip,.png,.svg,.bmp" />
     </div>
-}
-<hr />
-    TotalPrice : $@Model.Sum(p => p.Price*p.Quantity);
+    <a asp-area="Orders" asp-controller="Orders" asp-action="FinishOrder" class="checkout">Checkout</a>
 
-  <div class="totals">
-    <div class="totals-item">
-      <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal">71.97</div>
-    </div>
-    <div class="totals-item">
-      <label>Tax (5%)</label>
-      <div class="totals-value" id="cart-tax">3.60</div>
-    </div>
-    <div class="totals-item">
-      <label>Shipping</label>
-      <div class="totals-value" id="cart-shipping">15.00</div>
-    </div>
-    <div class="totals-item totals-item-total">
-      <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">90.57</div>
-    </div>
-  </div>
-      
-      <button class="checkout">Checkout</button>
+</div>
+<div>
+    <form asp-action="UploadSchematics"  method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All"></div>
+        <br />
+        Upload your schematic for Pcb manufacturing (only .zip files allowed):
+        <br />
+        <input type="file" name="schematicZip" style="display: none" accept=".zip" />
+        <button type="button" class="btn btn-primary" onclick="document.getElementsByName('schematicZip')[0].click()">Choose your file!</button>
+        <br />
+        <br />
+        <input type="submit" class="btn btn-success" value="Upload Schematic" />
+    </form>
 
 </div>
 
-<script src="~/js/shoppingCart.js"></script>

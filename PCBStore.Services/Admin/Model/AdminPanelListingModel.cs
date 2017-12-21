@@ -8,5 +8,7 @@
 
       public int NumberOfComponents { get; set; }
 
+      public int NumberOfOrders { get; set; }
+
    }
 }

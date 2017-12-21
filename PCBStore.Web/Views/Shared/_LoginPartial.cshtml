@@ -9,6 +9,11 @@
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a asp-area="Orders" asp-controller="Orders" asp-action="Items"><i class="fa fw fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Shopping cart</span>
+                </a>
+            </li>
+            <li>
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
                 @if (User.IsInRole(WebConstants.AdministratorRole))
                 {
@@ -17,11 +22,11 @@
                         <i class="fa fw fa-sliders" aria-hidden="true"></i>
                         <span class="nav-link">Settings</span>
                     </a></li>
-                    
+
                 }
             </li>
             <li>
-                
+
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
             </li>
         </ul>

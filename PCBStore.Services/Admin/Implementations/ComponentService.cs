@@ -6,7 +6,6 @@
    using Data;
    using Data.Models;
    using Data.Models.Enums;
-   using Microsoft.AspNetCore.Identity;
    using Microsoft.EntityFrameworkCore;
    using Model;
 
@@ -21,7 +20,7 @@
       }
 
 
-      public async Task Create(string name, string description, ComponentType type, ManufacturersEnum manufacturer, decimal price,string userId)
+      public async Task Create(string name, string description, ComponentType type, ManufacturersEnum manufacturer, decimal price,string userId,string imgAddress)
       {
          
 
@@ -32,8 +31,8 @@
             Type = type,
             Manufacturer = manufacturer,
             Price = price,
-            UserId = userId
-
+            UserId = userId,
+            ImgAddress = imgAddress
          };
 
          this._db.Add(component);

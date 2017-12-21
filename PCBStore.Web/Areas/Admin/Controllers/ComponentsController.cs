@@ -7,7 +7,6 @@
    using Microsoft.AspNetCore.Mvc;
    using Models.Components;
    using Services.Admin;
-   using Services.Admin.Model;
    using static WebConstants;
 
    [Authorize(Roles = AdministratorRole)]
@@ -47,7 +46,7 @@
       {
          var userId = _userManager.GetUserId(User);
 
-         await this._component.Create(model.Name, model.Description, model.Type, model.Manufacturer, model.Price, userId);
+         await this._component.Create(model.Name, model.Description, model.Type, model.Manufacturer, model.Price, userId,model.ImgAddress );
 
         return  RedirectToAction(nameof(AddComponent));
       }

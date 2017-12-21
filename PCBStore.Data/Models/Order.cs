@@ -10,10 +10,15 @@
 
       public string CustomerId { get; set; }
 
+      public decimal TotalPrice { get; set; }
+
       public Customer Customer { get; set; }
 
       public ICollection<OrderComponents> Components { get; set; } = new List<OrderComponents>();
 
-     
+      [MaxLength(SchematicAndPcbFileLength)]
+      public byte[] Schematic { get; set; }
+
+
    }
 }

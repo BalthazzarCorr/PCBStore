@@ -2,7 +2,10 @@
 {
    using System.Collections.Concurrent;
    using System.Collections.Generic;
+   using Data.Models;
    using Models;
+   using Microsoft.AspNetCore.Http;
+   
 
    public class ShoppingCartServices : IShoppingCartService
    {
@@ -35,6 +38,23 @@
 
          return new List<CartItem>(shoppingCart.Items);
       }
+
+      public void Clear(string id) => this.GetShoppingCart(id).Clear();
+
+
+      public void UpdateItem(Component componet, int quantity,string shoppingCartId)
+      {
+        
+         var shoppingCart = GetShoppingCart(shoppingCartId);
+
+         var item = shoppingCart.Items.Find(c => c.ProductId == componet.Id);
+
+         item.Quantity = quantity;
+         
+         
+      }
+
+     
 
       private ShoppingCart GetShoppingCart(string cartId)
       {
