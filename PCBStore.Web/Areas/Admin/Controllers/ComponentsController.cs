@@ -41,16 +41,30 @@
       }
 
 
+
+
       [HttpPost]
       public async Task<IActionResult> AddComponent(ComponentAddViewModel model)
       {
          var userId = _userManager.GetUserId(User);
 
-         await this._component.Create(model.Name, model.Description, model.Type, model.Manufacturer, model.Price, userId,model.ImgAddress );
+         await this._component.Create(model.Name, model.Description, model.Type, model.Manufacturer, model.Price, model.ImgAddress ,userId );
 
-        return  RedirectToAction(nameof(AddComponent));
+         return RedirectToAction(nameof(AddComponent));
       }
 
+
+      public async Task<IActionResult> DeleteComponet(int id)
+      {
+         var component = await this._component.ComponentById(id);
+
+         if (component != null)
+         {
+            this._component.DeleteComponent(id);
+         }
+
+         return RedirectToAction(nameof(Index));
+      }
 
    }
 }

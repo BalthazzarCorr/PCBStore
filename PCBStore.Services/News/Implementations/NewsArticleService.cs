@@ -30,6 +30,32 @@
          .ProjectTo<ArticleListingModel>()
          .ToListAsync();
 
+
+      public void UpdateArticle(ArticleDetailsModel model)
+      {
+         var article = this._db.NewsArticles.Find(model.Id);
+         article.Id = model.Id;
+         article.AuthorId = model.AuthorId;
+         article.Content = model.Content;
+         article.PublishDate = DateTime.UtcNow;
+         article.Title = model.Title;
+
+
+         this._db.NewsArticles.Update(article);
+         this._db.SaveChanges();
+      }
+
+      public void DeleteArticle(int id)
+      {
+         var article = this._db.NewsArticles.Find(id);
+
+         if (article != null)
+         {
+            this._db.NewsArticles.Remove(article);
+            this._db.SaveChanges();
+         }
+      }
+
       public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)=> await this._db.Comments
          .Where(c => c.ArticleId == articleId)
          .OrderByDescending(a => a.PublishDate)

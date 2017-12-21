@@ -1,6 +1,7 @@
 ﻿namespace PCBStore.Services.Admin.Implementations
 {
    using System.Collections.Generic;
+   using System.Linq;
    using System.Threading.Tasks;
    using AutoMapper.QueryableExtensions;
    using Data;
@@ -20,7 +21,8 @@
       }
 
 
-      public async Task Create(string name, string description, ComponentType type, ManufacturersEnum manufacturer, decimal price,string userId,string imgAddress)
+      public async Task Create(string name, string description, ComponentType type, ManufacturersEnum manufacturer, decimal price,
+         string imgAddress, string userId)
       {
          
 
@@ -41,5 +43,16 @@
 
       public async Task<IEnumerable<ComponetListingModel>> AllAsync()
             => await this._db.Components.ProjectTo<ComponetListingModel>().ToListAsync();
+
+      public async Task<ComponentAddModel> ComponentById(int id)
+               => await this._db.Components.Where(s=>s.Id == id ).ProjectTo<ComponentAddModel>().FirstOrDefaultAsync();
+
+      public void DeleteComponent(int id)
+      {
+        var component = this._db.Components.Find(id);
+
+         this._db.Components.Remove(component);
+         this._db.SaveChanges();
+      }
    }
 }

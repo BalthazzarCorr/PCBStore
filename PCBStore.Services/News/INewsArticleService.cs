@@ -15,6 +15,10 @@ namespace PCBStore.Services.News
 
       Task<IEnumerable<ArticleListingModel>> AllAsync(int page = 1);
 
+      void UpdateArticle(ArticleDetailsModel model);
+
+      void DeleteArticle(int id);
+
       //Task <IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId);
    }
 }

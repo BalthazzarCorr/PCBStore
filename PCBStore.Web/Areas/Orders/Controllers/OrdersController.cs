@@ -8,7 +8,6 @@
    using Data;
    using Data.Models;
    using Infrastructure.Extensions;
-   using LearningSystem.Web.Infrastructure.Extensions;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Http;
    using Microsoft.AspNetCore.Identity;
@@ -29,8 +28,7 @@
       private readonly PcbStoreDbContext _db;
       private readonly IComponentService _componentService;
       private readonly UserManager<Customer> _userManager;
-      private byte[] _fileContents;
-
+      
       public OrdersController(IShoppingCartService cartService, PcbStoreDbContext db, IComponentService
          componentService, UserManager<Customer> userManager)
       {
@@ -39,8 +37,11 @@
          this._componentService = componentService;
          this._userManager = userManager;
 
-         this._fileContents = new byte[20000000];
       }
+
+     
+         
+     
 
       public async Task<IActionResult> Index()
       {
@@ -95,15 +96,28 @@
       [Authorize]
       public async Task<IActionResult> UploadSchematics(IFormFile schematicZip)
       {
-         if (!schematicZip.FileName.EndsWith(".zip")|| schematicZip.Length > DataConstants.SchematicAndPcbFileLength)
+         if (schematicZip != null)
          {
-            TempData.ErrorMessage("Your submission should be a '.zip' file with no more than 20 MB in size!");
+
+            if (!schematicZip.FileName.EndsWith(".zip") ||schematicZip.Length > DataConstants.SchematicAndPcbFileLength)
+            {
+               TempData.ErrorMessage("Your submission should be a '.zip' file with no more than 20 MB in size!");
+               return RedirectToAction(nameof(Items));
+            }
+
+           
+            var fileContents = await schematicZip.ToByteArrayAsync();
+
+            var savedFile = this._cartService.SavingFile(fileContents);
+
+            TempData.AddSuccessMessage("File uploaded successfully");
+
             return RedirectToAction(nameof(Items));
          }
 
-          this._fileContents = await schematicZip.ToByteArrayAsync();
+         TempData.ErrorMessage("Your didn`t submit a schematic file");
 
-         return RedirectToAction(nameof(Items) );
+         return RedirectToAction(nameof(Items));
       }
 
       [Authorize]
@@ -120,7 +134,8 @@
          {
             CustomerId = this._userManager.GetUserId(User),
             TotalPrice = itemsWithDetails.Sum(i => i.Price * i.Quantity),
-            Schematic = this._fileContents
+            Schematic = this._cartService.SavedFile()
+           
             
          };
 

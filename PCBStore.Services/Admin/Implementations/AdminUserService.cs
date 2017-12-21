@@ -1,6 +1,8 @@
 ﻿namespace PCBStore.Services.Admin.Implementations
 {
+   using System;
    using System.Collections.Generic;
+   using System.IO;
    using System.Linq;
    using System.Threading.Tasks;
    using AutoMapper.QueryableExtensions;
@@ -44,9 +46,37 @@
          
       }
 
+
+
+
       public async Task<CustomerEditModel> Edit(string email)
          => await this._db.Users.Where(s => s.Email == email).ProjectTo<CustomerEditModel>().FirstOrDefaultAsync();
 
-     
+
+      public   List<LogModel> AllLogs()
+      {
+         var filePath = @"C:\Users\Baltar\Source\Repos\PCBStore\PCBStore.Web\log.txt";
+
+         var text = File.ReadAllLines(filePath);
+
+         List<LogModel>Logs = new List<LogModel>();
+         
+         for (int i = 0; i < text.Length; i++)
+         {
+            var line = text[i];
+
+
+            var log = new LogModel
+            {
+               Info = line
+            };
+
+            Logs.Add(log);
+
+         }
+
+         return Logs;
+
+      }
    }
 }

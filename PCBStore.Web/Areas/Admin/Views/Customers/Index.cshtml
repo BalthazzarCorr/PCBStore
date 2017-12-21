@@ -1,6 +1,7 @@
 ﻿@model AdminPanelListingModel
 @{
     ViewData["Title"] = "Index";
+    
 }
 
 <div class="content-wrapper">
@@ -23,7 +24,7 @@
                     <div class="mr-5">@Model.NumberOfCustomers Customers</div>
                 </div>
                 <a asp-action="AllCustomers" class="card-footer text-white clearfix small z-1" >
-                    <span class="float-left">View Details</span>
+                    <span class="float-left">View All</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
@@ -38,8 +39,8 @@
                     </div>
                     <div class="mr-5">@Model.NumberOfArticles News Articles</div>
                 </div>
-                <a asp-area="News" asp-controller="News" asp-action="Index" class="card-footer text-white clearfix small z-1" >
-                    <span class="float-left">View Details</span>
+                <a asp-area="News" asp-controller="News" asp-action="AdminListing" class="card-footer text-white clearfix small z-1" >
+                    <span class="float-left">View All</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
@@ -55,7 +56,7 @@
                     <div class="mr-5">@Model.NumberOfComponents Components</div>
                 </div>
                 <a asp-controller="Components" asp-action="Index" class="card-footer text-white clearfix small z-1" >
-                    <span class="float-left">View Details</span>
+                    <span class="float-left">View All</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>

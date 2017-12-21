@@ -4,6 +4,7 @@
    using Data;
    using Data.Models;
    using Infrastructure.Extensions;
+   using Infrastructure.Filters;
    using Microsoft.AspNetCore.Builder;
    using Microsoft.AspNetCore.Hosting;
    using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,6 @@
    using Microsoft.EntityFrameworkCore;
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
-   using Services;
    using Services.Order;
    using Services.Order.Implementations;
 
@@ -43,7 +43,12 @@
 
 
 
-         services.AddMvc(optinos => optinos.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
+         services.AddMvc(options =>
+         {
+            options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            options.Filters.Add(new SimpleLogAttribute());
+            options.Filters.Add(new ActionTimeAttribute());
+         });
          services.AddRouting(routing => routing.LowercaseUrls = true);
          services.AddAntiforgery();
          services.AddSingleton<IShoppingCartService, ShoppingCartServices>();

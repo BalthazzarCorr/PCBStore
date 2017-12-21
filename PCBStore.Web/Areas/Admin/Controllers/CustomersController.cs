@@ -60,12 +60,15 @@
 
          var NumberOfOrders = this._db.Orders.Count();
 
+         var logs = this._users.AllLogs();
+
          return View( new AdminPanelListingModel
          {
             NumberOfCustomers = numberOfCustomers,
             NumberOfComponents = numberOfComponents,
             NumberOfArticles = numberOfArticles,
-            NumberOfOrders = NumberOfOrders
+            NumberOfOrders = NumberOfOrders,
+            Logs = logs
             
          });
       }

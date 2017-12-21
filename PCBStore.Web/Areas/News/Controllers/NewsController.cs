@@ -1,6 +1,8 @@
 ﻿namespace PCBStore.Web.Areas.News.Controllers
 {
+   using System;
    using System.Threading.Tasks;
+   using Admin.Controllers;
    using Data.Models;
    using Infrastructure.Extensions;
    using Infrastructure.Filters;
@@ -37,24 +39,12 @@
       }
 
       [ValidateModelState]
-      [Route("[controller]/[action]")]
+     
       public IActionResult Create() => View();
 
-      [AllowAnonymous]
-      public async Task<IActionResult> Index(int page = 1)
-      {
-         return View(new NewsListingModel()
-         {
-            Articles = await this._newsArticles.AllAsync(page),
-            TotalArticles = await this._newsArticles.TotalAsyncArticles(),
-            CurrentPage = page
-         });
-
-      }
 
 
       [HttpPost]
-      [ValidateModelState]
       public async Task<IActionResult> Create(NewsArticleCreatingModel model)
       {
          if (!ModelState.IsValid)
@@ -71,6 +61,86 @@
          return RedirectToAction(nameof(Index));
 
       }
+
+      [AllowAnonymous]
+      public async Task<IActionResult> Index(int page = 1)
+      {
+         return View(new NewsListingModel
+         {
+            Articles = await this._newsArticles.AllAsync(page),
+            TotalArticles = await this._newsArticles.TotalAsyncArticles(),
+            CurrentPage = page
+         });
+
+      }
+
+      public async Task<IActionResult> AdminListing()
+      {
+         return View(new NewsListingModel
+         {
+            Articles = await this._newsArticles.AllAsync(1),
+         });
+      }
+
+
+      public async Task<IActionResult> DeletingOrUpdatingArticle(int id)
+      {
+         var article = this._newsArticles.ArticleDetails(id);
+
+         if (article == null)
+         {
+            TempData.ErrorMessage($"Article does not exist");
+            return RedirectToAction(nameof(CustomersController.Index), new {area = "Admin"});
+
+         }
+
+         return View(await this._newsArticles.ArticleDetails(id));
+
+      }
+
+
+      [HttpPost]
+      public  IActionResult UpdateArticle(int id, ArticleDetailsModel model)
+      {
+         if (!ModelState.IsValid)
+         {
+            return BadRequest(ModelState);
+         }
+         
+         if (model != null)
+         {
+             this._newsArticles.UpdateArticle(model);
+
+            TempData.AddSuccessMessage($"Successfully edited Article");
+           return RedirectToAction(nameof(AdminListing));
+         }
+
+         TempData.ErrorMessage($"Article does not exist");
+         return RedirectToAction(nameof(CustomersController.Index), new {area ="Admin"});
+      }
+
+
+
+      [HttpPost]
+      public IActionResult DeletePermanitly(int id)
+      {
+         if (!ModelState.IsValid)
+         {
+            return BadRequest(ModelState);
+         }
+
+         if (id != 0)
+         {
+            this._newsArticles.DeleteArticle(id);
+
+            TempData.AddSuccessMessage($"Successfully deleted Article");
+            return RedirectToAction(nameof(AdminListing));
+         }
+
+         TempData.ErrorMessage($"Article does not exist");
+         return RedirectToAction(nameof(CustomersController.Index), new {area = "Admin"});
+      }
+
 
       [AllowAnonymous]
       public async Task<IActionResult> Details(int id)

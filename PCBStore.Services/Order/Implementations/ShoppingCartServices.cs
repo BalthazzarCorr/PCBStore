@@ -4,16 +4,20 @@
    using System.Collections.Generic;
    using Data.Models;
    using Models;
-   using Microsoft.AspNetCore.Http;
-   
+
 
    public class ShoppingCartServices : IShoppingCartService
    {
       private readonly ConcurrentDictionary<string, ShoppingCart> _carts;
-     public ShoppingCartServices()
+
+      private  byte[] _file;
+
+      public ShoppingCartServices()
       {
-         
+
          this._carts = new ConcurrentDictionary<string, ShoppingCart>();
+         
+         this._file = new byte[20000000];
       }
 
       public void AddToCart(string cartId, int productId)
@@ -30,7 +34,7 @@
 
          shoppingCart.RemoveFromCart(productId);
       }
-      
+
 
       public IEnumerable<CartItem> GetItems(string cartId)
       {
@@ -42,19 +46,32 @@
       public void Clear(string id) => this.GetShoppingCart(id).Clear();
 
 
-      public void UpdateItem(Component componet, int quantity,string shoppingCartId)
+      public void UpdateItem(Component componet, int quantity, string shoppingCartId)
       {
-        
+
          var shoppingCart = GetShoppingCart(shoppingCartId);
 
          var item = shoppingCart.Items.Find(c => c.ProductId == componet.Id);
 
          item.Quantity = quantity;
-         
-         
+
+
       }
 
-     
+      public byte[] SavingFile(byte[] file)
+      {
+
+         this._file = file;
+
+         return this._file;
+      }
+
+      public byte[] SavedFile()
+      {
+         return this._file;
+      }
+
+
 
       private ShoppingCart GetShoppingCart(string cartId)
       {

@@ -7,8 +7,12 @@
 
    public interface IComponentService
    {
-      Task Create(string name,string description,ComponentType type,ManufacturersEnum manufacturer, decimal price, string userId,string imgAddress);
+      Task Create(string name,string description,ComponentType type,ManufacturersEnum manufacturer, decimal price, string imgAddress, string userId);
 
       Task<IEnumerable<ComponetListingModel>> AllAsync();
+
+      Task<ComponentAddModel> ComponentById(int id);
+
+      void DeleteComponent(int id);
    }
 }

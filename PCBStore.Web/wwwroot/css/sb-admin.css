@@ -98,8 +98,9 @@ body.fixed-nav {
     content: '\f107'; }
   #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown .dropdown-menu > .dropdown-item > .dropdown-message {
     overflow: hidden;
+    overflow-y: initial;
     max-width: none;
-    text-overflow: ellipsis; }
+    text-overflow: initial; }
 
 @media (min-width: 992px) {
   #mainNav .navbar-brand {
@@ -130,7 +131,7 @@ body.fixed-nav {
           #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li {
             width: 250px; }
             #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a,
-            #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+            #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {   
               padding: 1em; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a {
           padding-left: 2.75em; }
@@ -142,7 +143,7 @@ body.fixed-nav {
         width: 24px;
         text-align: center; }
     #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown .dropdown-menu > .dropdown-item > .dropdown-message {
-      max-width: 300px; } }
+      max-width: 450px; } }
 
 #mainNav.fixed-top .sidenav-toggler {
   display: none; }

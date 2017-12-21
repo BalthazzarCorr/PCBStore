@@ -1,6 +1,7 @@
 ﻿@model ComponentAddViewModel
 @{
     ViewData["Title"] = "Add Component";
+    Layout = "_AdminLayout_Two";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -43,6 +44,12 @@
                         <input asp-for="Price" class="form-control" />
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="ImgAddress"></label>
+                        <input asp-for="ImgAddress" class="form-control"/>
+                        <span asp-validation-for="ImgAddress" class="text-danger"></span>
+                    </div>
+
 
                     <input type="submit" class="btn btn-success" value="Add" />
                     <br />

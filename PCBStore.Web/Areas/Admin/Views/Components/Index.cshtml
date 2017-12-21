@@ -1,6 +1,8 @@
 ﻿@model ComponentLisitingViewModel
 @{
     ViewData["Title"] = "All Components";
+    Layout = "_AdminLayout_Two";
+
 }
 
 <div class="content-wrapper">
@@ -42,12 +44,17 @@
                         <tbody>
                             @foreach (var component in Model.Componets)
                             {
-                                <tr scope="row">
-                                    <td>@component.Name </td>
-                                    <td>@component.Type </td>
-                                    <td>@component.Manufacturer </td>
-                                    <td>@component.Price </td>
-                                </tr>
+                            <tr scope="row">
+                                <td><a>@component.Name</a> </td>
+                                <td>@component.Type </td>
+                                <td>@component.Manufacturer </td>
+                                <td>@component.Price 
+                                    <input type="hidden" value="@component.Id" />
+                                    <a asp-action="DeleteComponet" asp-route-id="@component.Id" class="btn btn-danger btn-xs" style="margin-left: 10%">Delete</a>
+                                       
+                                </td>
+                                
+                            </tr>
                             }
                         </tbody>
                     </table>

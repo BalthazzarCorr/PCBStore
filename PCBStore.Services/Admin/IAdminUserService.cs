@@ -11,6 +11,6 @@
 
       Task<CustomerEditModel> Edit(string email);
 
-     //void  Edit(string email, CustomerEditModel model);
+      List<LogModel> AllLogs();
    }
 }
