@@ -42,19 +42,7 @@
             .HasMany(c => c.Components)
             .WithOne(o => o.Order).HasForeignKey(i => i.OrderId);
 
-         //builder.Entity<OrderComponents>()
-         //   .HasKey(st => new {st.OrderId, st.ComponentId});
-
-         //builder.Entity<OrderComponents>()
-         //   .HasOne(o => o.Order)
-         //   .WithMany(c => c.Components)
-         //   .HasForeignKey(c => c.ComponentId);
-
-         //builder.Entity<OrderComponents>()
-         //   .HasOne(c => c.Component)
-         //   .WithMany(o => o.Orders)
-         //   .HasForeignKey(c => c.ComponentId);
-         
+        
 
          base.OnModelCreating(builder);
          // Customize the ASP.NET Identity model and override the defaults if needed.

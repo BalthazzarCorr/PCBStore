@@ -12,9 +12,10 @@ using System;
 namespace PCBStore.Data.Migrations
 {
     [DbContext(typeof(PcbStoreDbContext))]
-    partial class PcbStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171222082459_deletingArticle")]
+    partial class deletingArticle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,15 +143,11 @@ namespace PCBStore.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(10000);
 
-                    b.Property<int?>("NewsArticleId");
-
                     b.Property<DateTime>("PublishDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("NewsArticleId");
 
                     b.ToTable("Comments");
                 });
@@ -361,10 +358,6 @@ namespace PCBStore.Data.Migrations
                     b.HasOne("PCBStore.Data.Models.Customer", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
-
-                    b.HasOne("PCBStore.Data.Models.NewsArticle")
-                        .WithMany("Comments")
-                        .HasForeignKey("NewsArticleId");
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.Component", b =>
@@ -378,7 +371,8 @@ namespace PCBStore.Data.Migrations
                 {
                     b.HasOne("PCBStore.Data.Models.Customer", "Author")
                         .WithMany("NewsArticles")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PCBStore.Data.Models.Order", b =>

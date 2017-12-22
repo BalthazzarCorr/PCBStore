@@ -1,6 +1,7 @@
 ﻿namespace PCBStore.Data.Models
 {
    using System;
+   using System.Collections.Generic;
    using System.ComponentModel.DataAnnotations;
    using static DataConstants;
 
@@ -23,6 +24,8 @@
 
        public Customer Author { get; set; }
 
+       public ICollection<Comment> Comments { get; set;} = new List<Comment>();
 
-   }
+
+    }
 }

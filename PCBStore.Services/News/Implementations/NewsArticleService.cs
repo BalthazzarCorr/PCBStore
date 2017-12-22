@@ -49,11 +49,23 @@
       {
          var article = this._db.NewsArticles.Find(id);
 
+         var comments = this._db.Comments.Where(c => c.ArticleId == id).Select(c => c.Id);
+
+
          if (article != null)
          {
             this._db.NewsArticles.Remove(article);
+
+            foreach (var item in comments)
+            {
+               var comment = this._db.Comments.Find(item);
+               this._db.Comments.Remove(comment);
+
+            }
             this._db.SaveChanges();
          }
+
+        
       }
 
       public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)=> await this._db.Comments
