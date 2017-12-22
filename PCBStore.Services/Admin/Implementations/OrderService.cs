@@ -1,6 +1,7 @@
 ﻿namespace PCBStore.Services.Admin.Implementations
 {
    using System.Collections.Generic;
+   using System.Linq;
    using System.Threading.Tasks;
    using AutoMapper.QueryableExtensions;
    using Data;
@@ -17,6 +18,9 @@
 
       }
 
+
+      public int OrderCount()
+         => this._db.Orders.Count();
 
       public async Task<IEnumerable<OrderListingModel>> AllAsync()
          => await this._db.Orders.ProjectTo<OrderListingModel>().ToListAsync();

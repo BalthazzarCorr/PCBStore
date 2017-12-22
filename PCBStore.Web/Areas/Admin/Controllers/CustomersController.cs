@@ -2,7 +2,6 @@
 {
    using System.Linq;
    using System.Threading.Tasks;
-   using Data;
    using Data.Models;
    using Infrastructure.Extensions;
    using Microsoft.AspNetCore.Authorization;
@@ -14,7 +13,6 @@
    using Services.Admin;
    using Services.Admin.Model;
    using Services.News;
-   using Services.Order;
    using Web.Models.AccountViewModels;
    using static WebConstants;
 
@@ -27,19 +25,20 @@
       private readonly IComponentService _components;
       private readonly UserManager<Customer> _userManager;
       private readonly INewsArticleService _newsArticles;
-      private readonly PcbStoreDbContext _db; 
+      private readonly IOrderService _orderService;
 
 
       public CustomersController(IAdminUserService users, RoleManager<IdentityRole> roleManager,
          UserManager<Customer> userManager, IComponentService components, INewsArticleService newsArticles,
-         PcbStoreDbContext db)
+         IOrderService orderService)
       {
          this._users = users;
          this._roleManager = roleManager;
          this._userManager = userManager;
          this._components = components;
          this._newsArticles = newsArticles;
-         this._db = db;
+         this._orderService = orderService;
+
 
       }
 
@@ -58,7 +57,7 @@
 
          var numberOfArticles = articles.Count();
 
-         var NumberOfOrders = this._db.Orders.Count();
+         var NumberOfOrders = this._orderService.OrderCount();
 
          var logs = this._users.AllLogs();
 

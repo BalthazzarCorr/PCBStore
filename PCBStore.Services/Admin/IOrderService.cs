@@ -7,5 +7,6 @@
    public interface IOrderService
     {
       Task<IEnumerable<OrderListingModel>> AllAsync();
+       int OrderCount();
    }
 }

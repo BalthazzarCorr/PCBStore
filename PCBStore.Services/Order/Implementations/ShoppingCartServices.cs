@@ -17,7 +17,7 @@
 
          this._carts = new ConcurrentDictionary<string, ShoppingCart>();
          
-         this._file = new byte[20000000];
+         
       }
 
       public void AddToCart(string cartId, int productId)
@@ -60,15 +60,20 @@
 
       public byte[] SavingFile(byte[] file)
       {
-
-         this._file = file;
+         if (file != null )
+         {
+            this._file = new byte[20000000];
+            this._file = file;
+         }
 
          return this._file;
       }
 
       public byte[] SavedFile()
       {
-         return this._file;
+        
+            return this._file;
+         
       }
 
 

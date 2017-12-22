@@ -123,10 +123,18 @@
       [Authorize]
       public IActionResult FinishOrder()
       {
+        
+
          var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
 
          var items = this._cartService.GetItems(shoppingCartId);
-         
+
+         if (!items.Any())
+         {
+            TempData.ErrorMessage("Can`t have an empty cart");
+            return RedirectToAction(nameof(Items));
+         }
+
          var itemsWithDetails = this.GetCartItems(items);
          
 
