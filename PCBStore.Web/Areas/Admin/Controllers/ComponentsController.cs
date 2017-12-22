@@ -2,6 +2,7 @@
 {
    using System.Threading.Tasks;
    using Data.Models;
+   using Infrastructure.Extensions;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
@@ -48,9 +49,17 @@
       {
          var userId = _userManager.GetUserId(User);
 
-         await this._component.Create(model.Name, model.Description, model.Type, model.Manufacturer, model.Price, model.ImgAddress ,userId );
+         if (ModelState.IsValid)
+         {
+            await this._component.Create(model.Name, model.Description, model.Type, model.Manufacturer, model.Price,
+               model.ImgAddress, userId);
+            TempData.AddSuccessMessage("Add element");
+            return RedirectToAction(nameof(AddComponent));
+         }
 
+         TempData.ErrorMessage("Can`t add empty component");
          return RedirectToAction(nameof(AddComponent));
+
       }
 
 

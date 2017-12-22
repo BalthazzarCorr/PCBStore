@@ -26,12 +26,12 @@
 
             Task.Run(async () =>
             {
-               var adminName = WebConstants.AdministratorRole;
+               var adminRole= WebConstants.AdministratorRole;
 
 
                var roles = new[]
                {
-                  adminName,
+                  adminRole,
                   WebConstants.ModeratorRole,
                   WebConstants.CustomerRole
                };
@@ -75,7 +75,7 @@
                     
                   };
                   await userManager.CreateAsync(adminUser, "admin12");
-                  await userManager.AddToRoleAsync(adminUser, adminName);
+                  await userManager.AddToRoleAsync(adminUser, adminRole);
                }
             }).Wait();
          }

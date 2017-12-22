@@ -83,11 +83,7 @@
 
          app.UseMvc(routes =>
          {
-            //routes.MapRoute(
-            //   name: "comments",
-            //   template: "news/deletecomment/{commentId}/{articleId}",
-            //   defaults: new {area = "News", controller = "News", action = "DeleteComment" }
-            //);
+          
 
             routes.MapRoute(
                name: "news",
