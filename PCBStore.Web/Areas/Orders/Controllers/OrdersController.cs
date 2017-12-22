@@ -59,8 +59,7 @@
 
          var items = this._cartService.GetItems(shoppingCartId);
 
-         //var itemsIds = items.Select(i => i.ProductId);
-
+       
          var itemsWithDetails = this.GetCartItems(items);
 
          return View(itemsWithDetails);
@@ -162,6 +161,7 @@
          this._db.SaveChanges();
 
          _cartService.Clear(shoppingCartId);
+         TempData.AddSuccessMessage("Order Sent");
 
          return RedirectToAction("Home","Home",new {area = "" });
       }

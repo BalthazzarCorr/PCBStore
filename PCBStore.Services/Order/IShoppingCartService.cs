@@ -18,6 +18,8 @@
 
       void UpdateItem(Component componet, int quantity, string shoppingCartId);
 
+
+
       byte[] SavingFile(byte[] file);
 
       byte[] SavedFile();

@@ -67,6 +67,8 @@
 
                var isInRole = await _userManager.IsInRoleAsync(await currentUser, WebConstants.AdministratorRole);
 
+               Url.IsLocalUrl(returnUrl);
+
                if (isInRole)
                {
                   return RedirectToAction(nameof(CustomersController.Index), "Customers", new {area = "Admin"});
