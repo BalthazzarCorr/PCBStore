@@ -19,6 +19,6 @@ namespace PCBStore.Services.News
 
       void DeleteArticle(int id);
 
-      //Task <IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId);
+     
    }
 }

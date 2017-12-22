@@ -1,10 +1,13 @@
 ﻿namespace PCBStore.Web.Areas.Admin.Controllers
 {
    using System.Threading.Tasks;
+   using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Mvc;
    using Models.Orders;
    using Services.Admin;
+   using static  WebConstants;
 
+   [Authorize(Roles = ModeratorRole + "," + AdministratorRole)]
    public class OrdersController : BaseAdminController
    {
       private readonly IOrderService _orderService;

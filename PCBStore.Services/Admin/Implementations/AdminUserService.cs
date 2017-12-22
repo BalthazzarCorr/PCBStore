@@ -54,7 +54,7 @@
 
       public   List<LogModel> AllLogs()
       {
-         var filePath = @"C:\Users\Balth\source\repos\PCBStore\PCBStore.Web\log.txt";
+         var filePath = @"log.txt";
 
          var text = File.ReadAllLines(filePath);
 

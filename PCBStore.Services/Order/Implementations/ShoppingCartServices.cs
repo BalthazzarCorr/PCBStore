@@ -10,14 +10,13 @@
    {
       private readonly ConcurrentDictionary<string, ShoppingCart> _carts;
 
-      private  byte[] _file;
+      private byte[] _file;
+
+
 
       public ShoppingCartServices()
       {
-
          this._carts = new ConcurrentDictionary<string, ShoppingCart>();
-         
-         
       }
 
       public void AddToCart(string cartId, int productId)
@@ -58,9 +57,11 @@
 
       }
 
+
+
       public byte[] SavingFile(byte[] file)
       {
-         if (file != null )
+         if (file != null)
          {
             this._file = new byte[20000000];
             this._file = file;
@@ -71,9 +72,9 @@
 
       public byte[] SavedFile()
       {
-        
-            return this._file;
-         
+
+         return this._file;
+
       }
 
 

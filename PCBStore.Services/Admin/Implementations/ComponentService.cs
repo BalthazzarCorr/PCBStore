@@ -49,10 +49,13 @@
 
       public void DeleteComponent(int id)
       {
-        var component = this._db.Components.Find(id);
+         if (id !=0)
+         {
+            var component = this._db.Components.Find(id);
 
-         this._db.Components.Remove(component);
-         this._db.SaveChanges();
+            this._db.Components.Remove(component);
+            this._db.SaveChanges();
+         }
       }
    }
 }

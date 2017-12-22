@@ -25,4 +25,8 @@
     <ProjectReference Include="..\PCBStore.Services\PCBStore.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Orders\Models\" />
+  </ItemGroup>
+
 </Project>

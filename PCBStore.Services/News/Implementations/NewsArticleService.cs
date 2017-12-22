@@ -68,7 +68,8 @@
         
       }
 
-      public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)=> await this._db.Comments
+      public async Task<IEnumerable<CommentsListingModel>> AllCommentsForArticle(int articleId)
+         => await this._db.Comments
          .Where(c => c.ArticleId == articleId)
          .OrderByDescending(a => a.PublishDate)
          .Take(ComentsPageSize)

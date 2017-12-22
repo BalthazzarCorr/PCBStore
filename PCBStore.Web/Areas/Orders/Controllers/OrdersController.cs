@@ -4,15 +4,14 @@
    using System.Linq;
    using System.Threading.Tasks;
    using Admin.Models.Components;
-   using AutoMapper.QueryableExtensions;
    using Data;
    using Data.Models;
    using Infrastructure.Extensions;
+   using Infrastructure.Filters;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Http;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
-   using Models;
    using Services.Admin;
    using Services.Order;
    using Services.Order.Models;
@@ -25,22 +24,22 @@
    public class OrdersController : Controller
    {
       private readonly IShoppingCartService _cartService;
-      private readonly PcbStoreDbContext _db;
       private readonly IComponentService _componentService;
       private readonly UserManager<Customer> _userManager;
-      
-      public OrdersController(IShoppingCartService cartService, PcbStoreDbContext db, IComponentService
-         componentService, UserManager<Customer> userManager)
+      private readonly IOrderCartService _orderService;
+
+      public OrdersController(IShoppingCartService cartService, IComponentService
+         componentService, UserManager<Customer> userManager, IOrderCartService orderService)
       {
          this._cartService = cartService;
-         this._db = db;
          this._componentService = componentService;
          this._userManager = userManager;
+         this._orderService = orderService;
 
       }
 
-     
-         
+
+
 
       public async Task<IActionResult> Index()
       {
@@ -58,7 +57,7 @@
 
          var items = this._cartService.GetItems(shoppingCartId);
 
-       
+
          var itemsWithDetails = this.GetCartItems(items);
 
          return View(itemsWithDetails);
@@ -82,31 +81,33 @@
 
 
       [HttpPost]
+      [ValidateModelState]
       public IActionResult UpdateCart(int componentId, int quantity)
       {
          var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
-         var componet = this._db.Components.First(c => c.Id == componentId);
-         _cartService.UpdateItem(componet, quantity,shoppingCartId);
+         var componet = this._orderService.ComponentById(componentId);
+         _cartService.UpdateItem(componet, quantity, shoppingCartId);
          return RedirectToAction(nameof(Items));
       }
 
       [HttpPost]
+      [ValidateModelState]
       [Authorize]
       public async Task<IActionResult> UploadSchematics(IFormFile schematicZip)
       {
          if (schematicZip != null)
          {
 
-            if (!schematicZip.FileName.EndsWith(".zip") ||schematicZip.Length > DataConstants.SchematicAndPcbFileLength)
+            if (!schematicZip.FileName.EndsWith(".zip") || schematicZip.Length > DataConstants.SchematicAndPcbFileLength)
             {
                TempData.ErrorMessage("Your submission should be a '.zip' file with no more than 20 MB in size!");
                return RedirectToAction(nameof(Items));
             }
 
-           
+
             var fileContents = await schematicZip.ToByteArrayAsync();
 
-            var savedFile = this._cartService.SavingFile(fileContents);
+            this._cartService.SavingFile(fileContents);
 
             TempData.AddSuccessMessage("File uploaded successfully");
 
@@ -121,7 +122,7 @@
       [Authorize]
       public IActionResult FinishOrder()
       {
-        
+
 
          var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
 
@@ -134,15 +135,15 @@
          }
 
          var itemsWithDetails = this.GetCartItems(items);
-         
+
 
          var order = new Order
          {
             CustomerId = this._userManager.GetUserId(User),
             TotalPrice = itemsWithDetails.Sum(i => i.Price * i.Quantity),
             Schematic = this._cartService.SavedFile()
-           
-            
+
+
          };
 
          foreach (var item in items)
@@ -152,28 +153,24 @@
                ComponentId = item.ProductId,
                Quantity = item.Quantity,
                ComponentPrice = item.Price,
-               
+
 
             });
          }
-         this._db.Add(order);
-         this._db.SaveChanges();
 
+         this._orderService.CreateOrder(order);
          _cartService.Clear(shoppingCartId);
+
          TempData.AddSuccessMessage("Order Sent");
 
-         return RedirectToAction("Home","Home",new {area = "" });
+         return RedirectToAction("Home", "Home", new { area = "" });
       }
 
       private List<CartItemViewModel> GetCartItems(IEnumerable<CartItem> items)
       {
          var itemsIds = items.Select(i => i.ProductId);
 
-         var itemsWithDetails = this._db.Components
-                     .Where(pr => itemsIds
-                   .Contains(pr.Id))
-                   .ProjectTo<CartItemViewModel>()
-                   .ToList();
+         var itemsWithDetails = this._orderService.ItemsWithDetails(itemsIds);
 
 
          var itemQuantities = items.ToDictionary(i => i.ProductId, i => i.Quantity);

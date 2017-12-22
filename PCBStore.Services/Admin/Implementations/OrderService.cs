@@ -17,8 +17,7 @@
          this._db = db;
 
       }
-
-
+      
       public int OrderCount()
          => this._db.Orders.Count();
 

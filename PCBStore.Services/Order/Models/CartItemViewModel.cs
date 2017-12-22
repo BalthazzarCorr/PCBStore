@@ -1,4 +1,4 @@
-﻿namespace PCBStore.Web.Areas.Orders.Models
+﻿namespace PCBStore.Services.Order.Models
 {
    public class CartItemViewModel
    {

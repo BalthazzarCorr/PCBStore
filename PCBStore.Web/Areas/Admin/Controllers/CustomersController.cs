@@ -4,6 +4,7 @@
    using System.Threading.Tasks;
    using Data.Models;
    using Infrastructure.Extensions;
+   using Infrastructure.Filters;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
@@ -94,6 +95,7 @@
       }
 
       [HttpPost]
+      [ValidateModelState]
       public  JsonResult Add([FromBody] RegisterViewModel model)
       {
          var customer = new Customer
@@ -114,6 +116,7 @@
 
 
       [HttpPost]
+      [ValidateModelState]
       public async Task<IActionResult> AddToRole(AddUserToRoleFormModel model)
       {
          var roleExists = await this._roleManager.RoleExistsAsync(model.Role);
@@ -142,6 +145,7 @@
       }
 
       [HttpPost]
+      [ValidateModelState]
       public async Task<IActionResult> RemoveFromRole(AddUserToRoleFormModel model)
       {
          var roleExists = await this._roleManager.RoleExistsAsync(model.Role);
@@ -178,12 +182,10 @@
       }
 
       [HttpPost]
+      [ValidateModelState]
       public async Task<IActionResult> EditCustomer(string email ,CustomerEditModel model)
       {
-         if (!ModelState.IsValid)
-         {
-            return BadRequest(ModelState);
-         }
+        
 
          var user = await _userManager.FindByEmailAsync(email);
         
@@ -205,6 +207,7 @@
       }
 
       [HttpPost]
+      [ValidateModelState]
       public async Task<IActionResult> DeletePermanitly(string email)
       {
          var user = _userManager.FindByEmailAsync(email);

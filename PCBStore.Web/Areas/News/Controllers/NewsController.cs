@@ -1,6 +1,5 @@
 ﻿namespace PCBStore.Web.Areas.News.Controllers
 {
-   using System;
    using System.Threading.Tasks;
    using Admin.Controllers;
    using Data.Models;
@@ -15,7 +14,7 @@
    using Services.News.Models;
    using static WebConstants;
 
-   
+
    [Area(NewsArea)]
    [Authorize(Roles = ModeratorRole + "," + AdministratorRole)]
    public class NewsController : Controller
@@ -38,20 +37,16 @@
          this._comments = comments;
       }
 
-      [ValidateModelState]
-     
+      
       public IActionResult Create() => View();
 
 
 
       [HttpPost]
+      [ValidateModelState]
       public async Task<IActionResult> Create(NewsArticleCreatingModel model)
       {
-         if (!ModelState.IsValid)
-         {
-            return BadRequest(ModelState);
-         }
-
+        
          model.Content = this._html.Sanitize(model.Content);
 
          var userId = _customers.GetUserId(User);
@@ -63,6 +58,7 @@
       }
 
       [AllowAnonymous]
+      [ValidateModelState]
       public async Task<IActionResult> Index(int page = 1)
       {
          return View(new NewsListingModel
@@ -74,6 +70,7 @@
 
       }
 
+      [ValidateModelState]
       public async Task<IActionResult> AdminListing()
       {
          return View(new NewsListingModel
@@ -82,7 +79,7 @@
          });
       }
 
-
+     
       public async Task<IActionResult> DeletingOrUpdatingArticle(int id)
       {
          var article = this._newsArticles.ArticleDetails(id);
@@ -100,6 +97,7 @@
 
 
       [HttpPost]
+      [ValidateModelState]
       public  IActionResult UpdateArticle(int id, ArticleDetailsModel model)
       {
          if (!ModelState.IsValid)
@@ -122,12 +120,10 @@
 
 
       [HttpPost]
+      [ValidateModelState]
       public IActionResult DeletePermanitly(int id)
       {
-         if (!ModelState.IsValid)
-         {
-            return BadRequest(ModelState);
-         }
+         
 
          if (id != 0)
          {
@@ -143,6 +139,7 @@
 
 
       [AllowAnonymous]
+
       public async Task<IActionResult> Details(int id)
       {
          var article = await this._newsArticles.ArticleDetails(id);

@@ -3,6 +3,7 @@
    using System.Threading.Tasks;
    using Data.Models;
    using Infrastructure.Extensions;
+   using Infrastructure.Filters;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,7 @@
 
 
       [HttpPost]
+      [ValidateModelState]
       public async Task<IActionResult> AddComponent(ComponentAddViewModel model)
       {
          var userId = _userManager.GetUserId(User);
