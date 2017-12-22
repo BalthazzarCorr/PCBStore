@@ -43,6 +43,7 @@
       {
          // Clear the existing external cookie to ensure a clean login process
          await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+         Url.IsLocalUrl(returnUrl);
 
          ViewData["ReturnUrl"] = returnUrl;
          return View();
@@ -216,6 +217,7 @@
       [AllowAnonymous]
       public IActionResult Register(string returnUrl = null)
       {
+         Url.IsLocalUrl(returnUrl);
          ViewData["ReturnUrl"] = returnUrl;
          return View();
       }
@@ -343,6 +345,7 @@
             }
             AddErrors(result);
          }
+         
 
          ViewData["ReturnUrl"] = returnUrl;
          return View(nameof(ExternalLogin), model);

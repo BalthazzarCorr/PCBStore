@@ -75,9 +75,7 @@
       public async Task<IActionResult> AllCustomers()
       {
          var users = await this._users.AllAsync();
-
-     
-
+         
          var roles = await this._roleManager.Roles.Select(r => new SelectListItem
          {
             Text = r.Name,
