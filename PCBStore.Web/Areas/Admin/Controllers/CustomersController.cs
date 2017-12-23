@@ -56,7 +56,7 @@
 
          var numberOfArticles = articles.Count();
 
-         var NumberOfOrders = this._orderService.OrderCount();
+         var numberOfOrders = this._orderService.OrderCount();
 
          var logs = this._users.AllLogs();
 
@@ -65,7 +65,7 @@
             NumberOfCustomers = numberOfCustomers,
             NumberOfComponents = numberOfComponents,
             NumberOfArticles = numberOfArticles,
-            NumberOfOrders = NumberOfOrders,
+            NumberOfOrders = numberOfOrders,
             Logs = logs
 
          });
@@ -96,8 +96,8 @@
       public JsonResult Add([FromBody] RegisterViewModel model)
       {
 
-         if (model.UserName == null || model.FirstName == null|| model.LastName == null  
-            || model.Address == null ||model.Country == null || model.Email == null)
+         if (model.UserName == null || model.FirstName == null || model.LastName == null
+            || model.Address == null || model.Country == null || model.Email == null)
          {
             TempData.ErrorMessage("Can`t add user with null field");
          }
@@ -112,7 +112,7 @@
             Country = model.Country,
 
          };
-       
+
          return Json(_userManager.CreateAsync(customer, model.Password));
       }
 
@@ -124,12 +124,23 @@
       {
          var roleExists = await this._roleManager.RoleExistsAsync(model.Role);
          var user = await this._userManager.FindByIdAsync(model.UserId);
+         var userRoles = await this._userManager.GetRolesAsync(user);
 
          var userExists = user != null;
 
          if (!roleExists || !userExists)
          {
             ModelState.AddModelError(string.Empty, "Invalid identity details.");
+         }
+
+         foreach (var role in userRoles)
+         {
+            if (role == model.Role)
+            {
+               TempData.ErrorMessage("User already has this role");
+
+               return RedirectToAction(nameof(AllCustomers));
+            }
          }
 
          if (!ModelState.IsValid)
@@ -153,12 +164,24 @@
       {
          var roleExists = await this._roleManager.RoleExistsAsync(model.Role);
          var user = await this._userManager.FindByIdAsync(model.UserId);
-
+         var userRoles = await this._userManager.GetRolesAsync(user);
          var userExists = user != null;
+
+       
 
          if (!roleExists || !userExists)
          {
             ModelState.AddModelError(string.Empty, "Invalid identity details.");
+         }
+
+         foreach (var role in userRoles)
+         {
+            if (role != model.Role)
+            {
+               TempData.ErrorMessage("User dosn`t have this role");
+
+              return  RedirectToAction(nameof(AllCustomers));
+            }
          }
 
          if (!ModelState.IsValid)
