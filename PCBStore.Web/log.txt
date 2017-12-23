@@ -1236,3 +1236,6 @@
 12/22/2017 22:33:43 – ::1 – admin@mysite.com – CustomersController.AllCustomers
 12/22/2017 22:33:59 – ::1 – admin@mysite.com – AccountController.Logout
 12/22/2017 22:33:59 – ::1 – Anonymous – HomeController.Home
+23-Dec-17 06:04:59 – ::1 – admin@mysite.com – HomeController.Index
+23-Dec-17 06:05:20 – ::1 – admin@mysite.com – HomeController.Home
+23-Dec-17 06:05:26 – ::1 – admin@mysite.com – CustomersController.Index

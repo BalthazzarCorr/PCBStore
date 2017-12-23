@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-PCBStore.Web-30E83E6E-B52C-4E2C-BF72-7F5A6ED53DA9</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\Orders\Models\**" />
+    <Content Remove="Areas\Orders\Models\**" />
+    <EmbeddedResource Remove="Areas\Orders\Models\**" />
+    <None Remove="Areas\Orders\Models\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
@@ -23,10 +30,6 @@
     <ProjectReference Include="..\PCBStore.Common\PCBStore.Common.csproj" />
     <ProjectReference Include="..\PCBStore.Data\PCBStore.Data.csproj" />
     <ProjectReference Include="..\PCBStore.Services\PCBStore.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Orders\Models\" />
   </ItemGroup>
 
 </Project>

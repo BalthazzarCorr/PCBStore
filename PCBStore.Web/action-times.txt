@@ -1267,3 +1267,6 @@
 12/22/2017 22:33:43 – CustomersController.AllCustomers – 00:00:00.0017823
 12/22/2017 22:33:59 – AccountController.Logout – 00:00:00.0003871
 12/22/2017 22:33:59 – HomeController.Home – 00:00:00.0002416
+23-Dec-17 06:04:59 – HomeController.Index – 00:00:00.0004634
+23-Dec-17 06:05:20 – HomeController.Home – 00:00:00.0002625
+23-Dec-17 06:05:25 – CustomersController.Index – 00:00:00.0003217
