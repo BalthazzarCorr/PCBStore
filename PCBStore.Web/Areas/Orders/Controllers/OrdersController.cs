@@ -19,8 +19,8 @@
 
 
 
-   [Route("[controller]/[action]")]
    [Area(OrdersArea)]
+   [Route("[controller]/[action]")]
    public class OrdersController : Controller
    {
       private readonly IShoppingCartService _cartService;

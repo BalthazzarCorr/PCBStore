@@ -4,14 +4,12 @@
    using Data.Models;
    using Infrastructure.Extensions;
    using Infrastructure.Filters;
-   using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
    using Models.Components;
    using Services.Admin;
-   using static WebConstants;
 
-   [Authorize(Roles = AdministratorRole)]
+
    [Route("[controller]/[action]")]
    public class ComponentsController : BaseAdminController
    {

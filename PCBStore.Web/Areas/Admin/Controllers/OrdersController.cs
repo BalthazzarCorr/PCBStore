@@ -7,7 +7,7 @@
    using Services.Admin;
    using static  WebConstants;
 
-   [Authorize(Roles = ModeratorRole + "," + AdministratorRole)]
+   [Authorize(Roles = ModeratorRole )]
    public class OrdersController : BaseAdminController
    {
       private readonly IOrderService _orderService;

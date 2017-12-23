@@ -5,7 +5,6 @@
    using Data.Models;
    using Infrastructure.Extensions;
    using Infrastructure.Filters;
-   using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
    using Microsoft.AspNetCore.Mvc;
    using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,9 +14,8 @@
    using Services.Admin.Model;
    using Services.News;
    using Web.Models.AccountViewModels;
-   using static WebConstants;
 
-   [Authorize(Roles = AdministratorRole)]
+
    [Route("[controller]/[action]")]
    public class CustomersController : BaseAdminController
    {
