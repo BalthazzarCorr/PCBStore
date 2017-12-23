@@ -39,8 +39,6 @@
       }
 
 
-
-
       public async Task<IActionResult> Index()
       {
          var components = await this._componentService.AllAsync();
@@ -98,9 +96,9 @@
          if (schematicZip != null)
          {
 
-            if (!schematicZip.FileName.EndsWith(".zip") || schematicZip.Length > DataConstants.SchematicAndPcbFileLength)
+            if (!schematicZip.FileName.EndsWith(".zip") || !schematicZip.FileName.EndsWith(".xml") || schematicZip.Length > DataConstants.SchematicAndPcbFileLength)
             {
-               TempData.ErrorMessage("Your submission should be a '.zip' file with no more than 20 MB in size!");
+               TempData.ErrorMessage("Your schematics  should be a '.zip' or '.xml' file with no more than 20 MB in size!");
                return RedirectToAction(nameof(Items));
             }
 

@@ -62,21 +62,21 @@
 
          var logs = this._users.AllLogs();
 
-         return View( new AdminPanelListingModel
+         return View(new AdminPanelListingModel
          {
             NumberOfCustomers = numberOfCustomers,
             NumberOfComponents = numberOfComponents,
             NumberOfArticles = numberOfArticles,
             NumberOfOrders = NumberOfOrders,
             Logs = logs
-            
+
          });
       }
 
       public async Task<IActionResult> AllCustomers()
       {
          var users = await this._users.AllAsync();
-         
+
          var roles = await this._roleManager.Roles.Select(r => new SelectListItem
          {
             Text = r.Name,
@@ -90,17 +90,23 @@
             Roles = roles
 
          });
-         
+
 
       }
 
       [HttpPost]
-      [ValidateModelState]
-      public  JsonResult Add([FromBody] RegisterViewModel model)
+      public JsonResult Add([FromBody] RegisterViewModel model)
       {
+
+         if (model.UserName == null || model.FirstName == null|| model.LastName == null  
+            || model.Address == null ||model.Country == null || model.Email == null)
+         {
+            TempData.ErrorMessage("Can`t add user with null field");
+         }
+
          var customer = new Customer
          {
-            UserName = model.UserName,
+            UserName = model.Email,
             FirstName = model.FirstName,
             LastName = model.LastName,
             Email = model.Email,
@@ -108,9 +114,8 @@
             Country = model.Country,
 
          };
-         
+       
          return Json(_userManager.CreateAsync(customer, model.Password));
-
       }
 
 
@@ -178,25 +183,25 @@
       public async Task<IActionResult> DeleteCustomer(string email)
       {
 
-         return View( await this._users.Edit(email));
+         return View(await this._users.Edit(email));
       }
 
       [HttpPost]
       [ValidateModelState]
-      public async Task<IActionResult> EditCustomer(string email ,CustomerEditModel model)
+      public async Task<IActionResult> EditCustomer(string email, CustomerEditModel model)
       {
-        
+
 
          var user = await _userManager.FindByEmailAsync(email);
-        
-         
+
+
          if (user != null)
          {
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Address = model.Address;
             user.Country = model.Country;
-            
+
             await _userManager.UpdateAsync(user);
 
             TempData.AddSuccessMessage($"Successfully edited user");

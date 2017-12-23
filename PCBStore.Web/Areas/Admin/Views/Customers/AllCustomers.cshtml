@@ -6,10 +6,17 @@
 
 <div class="content-wrapper">
     <div class="container-fluid">
+        
         @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
         {
             <div class="alert alert-success">
                 @TempData[WebConstants.TempDataSuccessMessageKey]
+            </div>
+        }
+        @if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
+        {
+            <div class="alert alert-danger">
+                @TempData[WebConstants.TempDataErrorMessageKey]
             </div>
         }
         <div class="card mb-3">
@@ -44,7 +51,7 @@
                         {
                             <tr scope="row">
                                 <td>@customer.FirstName @customer.LastName</td>
-                                <td><a asp-controller="Customers" asp-action="DeleteCustomer" asp-route-email="@customer.Email" >@customer.Email</a></td>
+                                <td><a asp-controller="Customers" asp-action="DeleteCustomer" asp-route-email="@customer.Email">@customer.Email</a></td>
                                 <td >
                                     @foreach (var role in @customer.CurrentRole)
                                     {
